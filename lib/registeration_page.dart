@@ -17,11 +17,12 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sample Page'),
+        title: const Text('Ro`yhatdan o`tish'),
       ),
       body: Center(
         child: Column(
           children: [
+            const Expanded(child: Text('')),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Container(
