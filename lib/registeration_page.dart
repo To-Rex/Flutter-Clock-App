@@ -126,7 +126,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: MediaQuery.of(context).size.height * 0.055,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_passwordController.text == _confirmPasswordController.text) {
+                      register();
+                    } else {
+                      print("passwords don't match");
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
