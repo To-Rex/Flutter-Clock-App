@@ -25,6 +25,8 @@ class _LoginPageState extends State<LoginPage> {
     //POST request to login Body in raw JSON format {"email": "email", "password": "password"}
     final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/login"),
+      //utf8.encode converts the string to bytes
+
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
