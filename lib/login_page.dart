@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:clock_mobile/registeration_page.dart';
@@ -11,7 +10,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   late final _emailController = TextEditingController();
   late final _passwordController = TextEditingController();
 
@@ -22,15 +20,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _login() async {
     print(_emailController.text);
-    //POST request to login Body in raw JSON format {"email": "email", "password": "password"}
+    //POST request to login Body in raw JSON format {"email": "email", "password": "password"} Headers: Content-Type: application/json Accept: application/json Response: 200 OK {"token": "token"} 400 Bad Request {"error": "error message"} 401 Unauthorized {"error": "error message"}
     final response = await http.post(
-      Uri.parse("https://calcappworks.herokuapp.com/login"),
-      //utf8.encode converts the string to bytes
-
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
+      Uri.parse(
+          "https://calcappworks.herokuapp.com/login"),
+      body: jsonEncode({
         'email': _emailController.text,
         'password': _passwordController.text,
       }),
@@ -39,7 +33,6 @@ class _LoginPageState extends State<LoginPage> {
       print(response.body);
     } else {
       print(response.body);
-      print("error");
     }
   }
 
@@ -50,7 +43,6 @@ class _LoginPageState extends State<LoginPage> {
     _emailController.dispose();
     _passwordController.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +66,8 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 221, 221, 221),
                   border: Border.all(
-                      color: const Color.fromARGB(255, 221, 221, 221), width: 2),
+                      color: const Color.fromARGB(255, 221, 221, 221),
+                      width: 2),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: TextField(
@@ -100,7 +93,8 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 221, 221, 221),
                   border: Border.all(
-                      color: const Color.fromARGB(255, 221, 221, 221), width: 2),
+                      color: const Color.fromARGB(255, 221, 221, 221),
+                      width: 2),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: TextField(
