@@ -4,7 +4,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class VerifyPage extends StatefulWidget {
-  VerifyPage(String s, {super.key});
+  var email;
+  VerifyPage(this.email, {super.key});
 
   @override
   _VerifyPageState createState() => _VerifyPageState();
@@ -12,11 +13,8 @@ class VerifyPage extends StatefulWidget {
 
 class _VerifyPageState extends State<VerifyPage> {
   late final _codeController = TextEditingController();
-
-  //counter down timer for resend code button in seconds (60 seconds)
   late  int _counter = 60;
 
-  //timer for counter down
   late final _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
     setState(() {
       if (_counter > 0) {
@@ -27,7 +25,6 @@ class _VerifyPageState extends State<VerifyPage> {
     });
   });
 
-  //resend code button
   Widget _resendCodeButton() {
     return TextButton(
       onPressed: _counter > 0
@@ -46,6 +43,8 @@ class _VerifyPageState extends State<VerifyPage> {
       ),
     );
   }
+
+
 
   @override
   void initState() {
