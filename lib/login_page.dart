@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:clock_mobile/registeration_page.dart';
+import 'package:clock_mobile/sample_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -19,8 +21,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _login() async {
-    print(_emailController.text);
-    //POST request to login Body in raw JSON format {"email": "email", "password": "password"} Headers: Content-Type: application/json Accept: application/json Response: 200 OK {"token": "token"} 400 Bad Request {"error": "error message"} 401 Unauthorized {"error": "error message"}
     final response = await http.post(
       Uri.parse(
           "https://calcappworks.herokuapp.com/login"),
@@ -30,7 +30,13 @@ class _LoginPageState extends State<LoginPage> {
       }),
     );
     if (response.statusCode == 200) {
-      print(response.body);
+      var token = json.decoder.convert(response.body)['token'];
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', token);
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) {
+            return const SamplePage();
+          }));
     } else {
       print(response.body);
     }
