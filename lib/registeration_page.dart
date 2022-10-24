@@ -15,18 +15,29 @@ class _RegisterPageState extends State<RegisterPage> {
   late final _confirmPasswordController = TextEditingController();
 
   Future register() async {
+    // {
+    //   "email": "dev.dilshodjon@gmail.com",
+    // "password": "1234"
+    // } post request body raw json format
+    var json = {
+      "email": "dev.dilshodjon@gmail.com",
+      "password": "1234",
+      "verify": '',
+      "times": '',
+      "coments": '',
+      "companets": '',
+      "token": ''
+    };
     final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/register"),
-      body: {
-        "email": _emailController.text,
-        "password": _passwordController.text,
-      },
+      body: json,
     );
     if (response.statusCode == 200) {
       print("success");
       print(response.body);
     } else {
       print(response.body);
+      print("error");
     }
   }
 
