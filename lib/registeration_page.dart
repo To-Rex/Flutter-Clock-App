@@ -24,7 +24,6 @@ class _RegisterPageState extends State<RegisterPage> {
       },
     );
     if (response.statusCode == 200) {
-
       print("success");
       print(response.body);
     } else {
@@ -134,7 +133,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   child: const Text(
-                    'Kirish',
+                    'Ro\'yxatdan o\'tish',
                   ),
                 ),
               ),
