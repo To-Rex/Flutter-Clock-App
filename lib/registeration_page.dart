@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -10,17 +9,13 @@ class RegisterPage extends StatefulWidget {
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
-class _RegisterPageState extends State<RegisterPage> {
 
+class _RegisterPageState extends State<RegisterPage> {
   late final _emailController = TextEditingController();
   late final _passwordController = TextEditingController();
   late final _confirmPasswordController = TextEditingController();
 
   Future<void> register() async {
-    // {
-    //   "email": "dev.dilshodjon@gmail.com",
-    // "password": "1234"
-    // } post request body raw json format
     final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/register"),
       headers: <String, String>{
@@ -32,11 +27,9 @@ class _RegisterPageState extends State<RegisterPage> {
       }),
     );
     if (response.statusCode == 200) {
-      print("success");
       print(response.body);
     } else {
       print(response.body);
-      print("error");
     }
   }
 
@@ -51,145 +44,143 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
       body: Center(
-        child: Column(
-          children: [
-            const Expanded(child: Text('')),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 221, 221, 221),
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 221, 221, 221), width: 2),
+          child: Column(children: [
+        const Expanded(child: Text('')),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 221, 221, 221),
+              border: Border.all(
+                  color: const Color.fromARGB(255, 221, 221, 221), width: 2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: TextField(
+              cursorColor: Colors.deepPurpleAccent,
+              controller: _emailController,
+              textAlign: TextAlign.left,
+              textInputAction: TextInputAction.next,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.only(left: 10, right: 10),
+                border: InputBorder.none,
+                hintText: 'Pochta',
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 221, 221, 221),
+              border: Border.all(
+                  color: const Color.fromARGB(255, 221, 221, 221), width: 2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: TextField(
+              cursorColor: Colors.deepPurpleAccent,
+              controller: _passwordController,
+              textAlign: TextAlign.left,
+              textInputAction: TextInputAction.next,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.only(left: 10, right: 10),
+                border: InputBorder.none,
+                hintText: 'Parol',
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 221, 221, 221),
+              border: Border.all(
+                  color: const Color.fromARGB(255, 221, 221, 221), width: 2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: TextField(
+              cursorColor: Colors.deepPurpleAccent,
+              controller: _confirmPasswordController,
+              textAlign: TextAlign.left,
+              textInputAction: TextInputAction.next,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.only(left: 10, right: 10),
+                border: InputBorder.none,
+                hintText: 'Parolni qaytadan kiriting',
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.height * 0.055,
+            child: ElevatedButton(
+              onPressed: () {
+                if (_passwordController.text ==
+                    _confirmPasswordController.text) {
+                  register();
+                } else {
+                  print("passwords don't match");
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: TextField(
-                  cursorColor: Colors.deepPurpleAccent,
-                  controller: _emailController,
-                  textAlign: TextAlign.left,
-                  textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 10, right: 10),
-                    border: InputBorder.none,
-                    hintText: 'Pochta',
-                  ),
-                ),
+              ),
+              child: const Text(
+                'Ro\'yxatdan o\'tish',
               ),
             ),
-            const SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 221, 221, 221),
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 221, 221, 221), width: 2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  cursorColor: Colors.deepPurpleAccent,
-                  controller: _passwordController,
-                  textAlign: TextAlign.left,
-                  textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 10, right: 10),
-                    border: InputBorder.none,
-                    hintText: 'Parol',
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 221, 221, 221),
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 221, 221, 221), width: 2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  cursorColor: Colors.deepPurpleAccent,
-                  controller: _confirmPasswordController,
-                  textAlign: TextAlign.left,
-                  textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 10, right: 10),
-                    border: InputBorder.none,
-                    hintText: 'Parolni qaytadan kiriting',
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * 0.055,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_passwordController.text == _confirmPasswordController.text) {
-                      register();
-                    } else {
-                      print("passwords don't match");
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text(
-                    'Ro\'yxatdan o\'tish',
-                  ),
-                ),
-              ),
-            ),
+          ),
+        ),
 
-            //bottom sign up text password
-            const Expanded(child: Text('')),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Hisobingiz bormi?',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      //finish activity
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'Kirish',
-                      style: TextStyle(
-                        color: Colors.deepPurpleAccent,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                ],
+        //bottom sign up text password
+        const Expanded(child: Text('')),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Hisobingiz bormi?',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                ),
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
-            ),
-          ]
-        )
-      ),
+              TextButton(
+                onPressed: () {
+                  //finish activity
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'Kirish',
+                  style: TextStyle(
+                    color: Colors.deepPurpleAccent,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.05,
+        ),
+      ])),
     );
   }
 }
