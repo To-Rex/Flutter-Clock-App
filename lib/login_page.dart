@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => VerifyPage(),
+          builder: (context) => VerifyPage("dev.dilshodjon@gmail.com"),
         ),
       );
       if (response.statusCode == 401) {

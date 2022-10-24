@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class VerifyPage extends StatefulWidget {
-  const VerifyPage({super.key});
+  VerifyPage(String s, {super.key});
 
   @override
   _VerifyPageState createState() => _VerifyPageState();
