@@ -32,6 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
       print("success");
       print(response.body);
     } else {
+      print(response.body);
       print("error");
     }
   }
