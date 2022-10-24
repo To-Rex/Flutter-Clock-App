@@ -18,14 +18,8 @@ class _RegisterPageState extends State<RegisterPage> {
     final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/register"),
       body: {
-        'email': _emailController.text,
-        'password': _passwordController.text,
-        'verify': false,
-        'times': [],
-        'coments': [],
-        'switch': [],
-        'companets': [],
-        'token': ''
+        "email": _emailController.text,
+        "password": _passwordController.text,
       },
     );
     if (response.statusCode == 200) {
@@ -33,7 +27,6 @@ class _RegisterPageState extends State<RegisterPage> {
       print(response.body);
     } else {
       print(response.body);
-      print("error");
     }
   }
 
