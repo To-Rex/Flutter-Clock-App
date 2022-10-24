@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:clock_mobile/registeration_page.dart';
 import 'package:clock_mobile/sample_page.dart';
+import 'package:clock_mobile/verify_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,6 +39,25 @@ class _LoginPageState extends State<LoginPage> {
             return const SamplePage();
           }));
     } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VerifyPage(),
+        ),
+      );
+      if (response.statusCode == 401) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Invalid Credentials'),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Something went wrong'),
+          ),
+        );
+      }
       print(response.body);
     }
   }
