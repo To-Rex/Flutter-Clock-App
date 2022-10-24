@@ -97,9 +97,6 @@ class _VerifyPageState extends State<VerifyPage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 15,
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Row(
@@ -108,6 +105,9 @@ class _VerifyPageState extends State<VerifyPage> {
                   _resendCodeButton(),
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 15,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
