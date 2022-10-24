@@ -16,11 +16,16 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future register() async {
     final response = await http.post(
-      Uri.parse("https://doppi-backend-production.up.railway.app/api/auth/sign-up-boss"),
+      Uri.parse("https://calcappworks.herokuapp.com/register"),
       body: {
         'email': _emailController.text,
         'password': _passwordController.text,
-        'confirmPassword': _confirmPasswordController.text,
+        'verify': false,
+        'times': [],
+        'coments': [],
+        'switch': [],
+        'companets': [],
+        'token': ''
       },
     );
     if (response.statusCode == 200) {
