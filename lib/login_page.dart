@@ -29,6 +29,13 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(0.0),
+        child: AppBar(
+          backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
+          elevation: 3,
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +132,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-
             //bottom sign up text password
             const Expanded(child: Text('')),
             Padding(

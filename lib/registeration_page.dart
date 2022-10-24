@@ -16,8 +16,12 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ro`yhatdan o`tish'),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(0.0),
+        child: AppBar(
+          backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
+          elevation: 3,
+        ),
       ),
       body: Center(
         child: Column(
@@ -133,13 +137,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      //start actvity registration page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RegisterPage(),
-                        ),
-                      );
+                      //finish activity
+                      Navigator.pop(context);
                     },
                     child: const Text(
                       'Sign in',
