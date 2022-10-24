@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     if (response.statusCode == 200) {
       var token = json.decoder.convert(response.body)['token'];
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', token);
+      //prefs.setString('token', token);
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) {
             return const SamplePage();
