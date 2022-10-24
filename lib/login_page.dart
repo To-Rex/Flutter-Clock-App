@@ -1,6 +1,9 @@
 
+import 'dart:convert';
+
 import 'package:clock_mobile/registeration_page.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -15,6 +18,27 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> _login() async {
+    print(_emailController.text);
+    //POST request to login Body in raw JSON format {"email": "email", "password": "password"}
+    final response = await http.post(
+      Uri.parse("https://calcappworks.herokuapp.com/login"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'email': _emailController.text,
+        'password': _passwordController.text,
+      }),
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print(response.body);
+      print("error");
+    }
   }
 
   @override
@@ -120,7 +144,9 @@ class _LoginPageState extends State<LoginPage> {
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: MediaQuery.of(context).size.height * 0.055,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _login();
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
                     shape: RoundedRectangleBorder(
