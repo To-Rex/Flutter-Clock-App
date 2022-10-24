@@ -44,7 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.only(left: 10, right: 10),
                     border: InputBorder.none,
-                    hintText: 'Email',
+                    hintText: 'Pochta',
                   ),
                 ),
               ),
@@ -69,7 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.only(left: 10, right: 10),
                     border: InputBorder.none,
-                    hintText: 'Password',
+                    hintText: 'Parol',
                   ),
                 ),
               ),
@@ -94,7 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.only(left: 10, right: 10),
                     border: InputBorder.none,
-                    hintText: 'Confirm Password',
+                    hintText: 'Parolni qaytadan kiriting',
                   ),
                 ),
               ),
@@ -129,7 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Don\'t have an account?',
+                    'Hisobingiz bormi?',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 15,
@@ -141,7 +141,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Navigator.pop(context);
                     },
                     child: const Text(
-                      'Sign in',
+                      'Kirish',
                       style: TextStyle(
                         color: Colors.deepPurpleAccent,
                         fontSize: 15,
