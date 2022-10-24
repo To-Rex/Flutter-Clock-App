@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.only(left: 10, right: 10),
                     border: InputBorder.none,
-                    hintText: 'Email',
+                    hintText: 'Pochta',
                   ),
                 ),
               ),
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.only(left: 10, right: 10),
                     border: InputBorder.none,
-                    hintText: 'Password',
+                    hintText: 'Parol',
                   ),
                 ),
               ),
@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                   TextButton(
                     onPressed: () {},
                     child: const Text(
-                      'Forgot Password?',
+                      'Parolingizni unitdingizmi?',
                       style: TextStyle(
                         color: Colors.deepPurpleAccent,
                         fontSize: 15,
@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Don\'t have an account?',
+                    'Hisobingiz Yo\`qmi?',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 15,
@@ -157,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     },
                     child: const Text(
-                      'Sign Up',
+                      'Ro\`yhatdan o`tish',
                       style: TextStyle(
                         color: Colors.deepPurpleAccent,
                         fontSize: 15,
