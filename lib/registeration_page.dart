@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -12,6 +13,24 @@ class _RegisterPageState extends State<RegisterPage> {
   late final _emailController = TextEditingController();
   late final _passwordController = TextEditingController();
   late final _confirmPasswordController = TextEditingController();
+
+  Future register() async {
+    final response = await http.post(
+      Uri.parse("https://doppi-backend-production.up.railway.app/api/auth/sign-up-boss"),
+      body: {
+        'email': _emailController.text,
+        'password': _passwordController.text,
+        'confirmPassword': _confirmPasswordController.text,
+      },
+    );
+    if (response.statusCode == 200) {
+
+      print("success");
+      print(response.body);
+    } else {
+      print("error");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
