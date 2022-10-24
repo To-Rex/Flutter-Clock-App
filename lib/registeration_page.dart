@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,13 +21,15 @@ class _RegisterPageState extends State<RegisterPage> {
     //   "email": "dev.dilshodjon@gmail.com",
     // "password": "1234"
     // } post request body raw json format
-    var json = {
-      "email": "dev.dilshodjon@gmail.com",
-      "password": "1234",
-    };
     final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/register"),
-      body: json,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'email': _emailController.text,
+        'password': _passwordController.text,
+      }),
     );
     if (response.statusCode == 200) {
       print("success");
