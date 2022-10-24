@@ -1,7 +1,9 @@
 
 import 'dart:async';
-
+import 'dart:convert';
+import 'package:clock_mobile/sample_page.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class VerifyPage extends StatefulWidget {
   var email;
@@ -14,6 +16,7 @@ class VerifyPage extends StatefulWidget {
 class _VerifyPageState extends State<VerifyPage> {
   late final _codeController = TextEditingController();
   late  int _counter = 60;
+  var verifyCode = "";
 
   late final _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
     setState(() {
@@ -44,10 +47,29 @@ class _VerifyPageState extends State<VerifyPage> {
     );
   }
 
-
+  Future<void> resendCode() async {
+    final response = await http.post(
+      Uri.parse("https://calcappworks.herokuapp.com/resendverefy"),
+      body: jsonEncode(<String, String>{
+        'email': widget.email,
+      }),
+    );
+    if (response.statusCode == 200) {
+      verifyCode = json.decoder.convert(response.body)['verefyCode'];
+    } else {
+      //snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Kodni yuborishda xatolik'),
+        ),
+      );
+    }
+  }
 
   @override
   void initState() {
+    resendCode();
     super.initState();
     _timer;
   }
@@ -115,7 +137,26 @@ class _VerifyPageState extends State<VerifyPage> {
                 height: MediaQuery.of(context).size.height * 0.055,
                 child: ElevatedButton(
                   onPressed: () {
-
+                    if(_codeController.text.length>5){
+                      if (_codeController.text == verifyCode) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Text('Tasdiqlash kod to\'g\'ri'),
+                          ),
+                        );
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                          return const SamplePage();
+                        }));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text('Kod noto\'g\'ri'),
+                          ),
+                        );
+                      }
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
