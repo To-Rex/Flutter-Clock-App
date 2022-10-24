@@ -1,4 +1,5 @@
 
+import 'package:clock_mobile/registeration_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -140,7 +141,15 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      //start actvity registration page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterPage(),
+                        ),
+                      );
+                    },
                     child: const Text(
                       'Sign Up',
                       style: TextStyle(
