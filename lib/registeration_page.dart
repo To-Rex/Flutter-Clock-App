@@ -32,7 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => VerifyPage(json.decoder.convert(response.body)['verefyCode']),
+          builder: (context) => VerifyPage(_emailController.text),
         ),
       );
     } else {

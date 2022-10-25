@@ -56,6 +56,7 @@ class _VerifyPageState extends State<VerifyPage> {
     );
     if (response.statusCode == 200) {
       verifyCode = json.decoder.convert(response.body)['verefyCode'];
+      print(verifyCode);
     } else {
       //snackbar
       ScaffoldMessenger.of(context).showSnackBar(
