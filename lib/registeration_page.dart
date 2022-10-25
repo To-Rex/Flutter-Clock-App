@@ -29,10 +29,11 @@ class _RegisterPageState extends State<RegisterPage> {
     );
     if (response.statusCode == 200) {
       print(response.body);
+      var verifyCode = json.decoder.convert(response.body)['verefy'];
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => VerifyPage(json.decoder.convert(response.body)["verefy"].toString(),_emailController.text),
+          builder: (context) => VerifyPage(_emailController.text, verifyCode.toString()),
         ),
       );
     } else {

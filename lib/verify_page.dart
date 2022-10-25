@@ -96,6 +96,7 @@ class _VerifyPageState extends State<VerifyPage> {
     super.dispose();
     _codeController.dispose();
     _timer.cancel();
+
   }
   @override
   Widget build(BuildContext context) {
@@ -153,8 +154,9 @@ class _VerifyPageState extends State<VerifyPage> {
                 height: MediaQuery.of(context).size.height * 0.055,
                 child: ElevatedButton(
                   onPressed: () {
+                    print("buuu  "+verifyCode);
                     if(_codeController.text.length>5){
-                      if (_codeController.text == verifyCode) {
+                      if (_codeController.text == verifyCode.toString()) {
                         verify();
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
