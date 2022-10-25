@@ -48,6 +48,7 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   Future<void> resendCode() async {
+    print(widget.email);
     final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/resendverefy"),
       body: jsonEncode(<String, String>{
