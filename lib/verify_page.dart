@@ -69,6 +69,38 @@ class _VerifyPageState extends State<VerifyPage> {
     }
   }
 
+  Future<void> verify() async {
+    final response = await http.post(
+      Uri.parse("https://calcappworks.herokuapp.com/verefyuser"),
+      body: jsonEncode(<String, String>{
+        'email': widget.email,
+        'verefyCode': _codeController.text,
+      }),
+    );
+    if (response.statusCode == 200) {
+      if(_codeController.text.length>5){
+        if (_codeController.text == verifyCode) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.green,
+              content: Text('Tasdiqlash kod to\'g\'ri'),
+            ),
+          );
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+            return const SamplePage();
+          }));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text('Kod noto\'g\'ri'),
+            ),
+          );
+        }
+      }
+    }
+  }
+
   @override
   void initState() {
     resendCode();
@@ -139,26 +171,7 @@ class _VerifyPageState extends State<VerifyPage> {
                 height: MediaQuery.of(context).size.height * 0.055,
                 child: ElevatedButton(
                   onPressed: () {
-                    if(_codeController.text.length>5){
-                      if (_codeController.text == verifyCode) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Text('Tasdiqlash kod to\'g\'ri'),
-                          ),
-                        );
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                          return const SamplePage();
-                        }));
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            backgroundColor: Colors.red,
-                            content: Text('Kod noto\'g\'ri'),
-                          ),
-                        );
-                      }
-                    }
+                    verify();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
