@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 import 'package:clock_mobile/sample_page.dart';
@@ -8,6 +7,7 @@ import 'package:http/http.dart' as http;
 class VerifyPage extends StatefulWidget {
   var email;
   var code;
+
   VerifyPage(this.email, this.code, {super.key});
 
   @override
@@ -16,7 +16,7 @@ class VerifyPage extends StatefulWidget {
 
 class _VerifyPageState extends State<VerifyPage> {
   late final _codeController = TextEditingController();
-  late  int _counter = 60;
+  late int _counter = 60;
   var verifyCode = "";
 
   late final _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -34,6 +34,7 @@ class _VerifyPageState extends State<VerifyPage> {
       onPressed: _counter > 0
           ? null
           : () {
+              resendCode();
               setState(() {
                 _counter = 60;
                 _timer;
@@ -96,8 +97,8 @@ class _VerifyPageState extends State<VerifyPage> {
     super.dispose();
     _codeController.dispose();
     _timer.cancel();
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,8 +155,7 @@ class _VerifyPageState extends State<VerifyPage> {
                 height: MediaQuery.of(context).size.height * 0.055,
                 child: ElevatedButton(
                   onPressed: () {
-                    print("buuu  "+verifyCode);
-                    if(_codeController.text.length>5){
+                    if (_codeController.text.length > 5) {
                       if (_codeController.text == verifyCode.toString()) {
                         verify();
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -164,7 +164,8 @@ class _VerifyPageState extends State<VerifyPage> {
                             content: Text('Tasdiqlash kod to\'g\'ri'),
                           ),
                         );
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
                           return const SamplePage();
                         }));
                       } else {
