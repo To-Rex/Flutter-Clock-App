@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:clock_mobile/verify_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,7 +28,13 @@ class _RegisterPageState extends State<RegisterPage> {
       }),
     );
     if (response.statusCode == 200) {
-      print(response.body);
+      //print(response.body);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VerifyPage(json.decoder.convert(response.body)['verefyCode']),
+        ),
+      );
     } else {
       print(response.body);
     }
