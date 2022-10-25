@@ -28,11 +28,11 @@ class _RegisterPageState extends State<RegisterPage> {
       }),
     );
     if (response.statusCode == 200) {
-      //print(response.body);
+      print(response.body);
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => VerifyPage(_emailController.text),
+          builder: (context) => VerifyPage(json.decoder.convert(response.body)["verefy"].toString(),_emailController.text),
         ),
       );
     } else {

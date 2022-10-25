@@ -7,7 +7,8 @@ import 'package:http/http.dart' as http;
 
 class VerifyPage extends StatefulWidget {
   var email;
-  VerifyPage(this.email, {super.key});
+  var code;
+  VerifyPage(this.email, this.code, {super.key});
 
   @override
   _VerifyPageState createState() => _VerifyPageState();
@@ -49,6 +50,7 @@ class _VerifyPageState extends State<VerifyPage> {
 
   Future<void> resendCode() async {
     print(widget.email);
+    print(widget.code);
     final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/resendverefy"),
       body: jsonEncode(<String, String>{
@@ -77,33 +79,13 @@ class _VerifyPageState extends State<VerifyPage> {
         'verefyCode': _codeController.text,
       }),
     );
-    if (response.statusCode == 200) {
-      if(_codeController.text.length>5){
-        if (_codeController.text == verifyCode) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: Colors.green,
-              content: Text('Tasdiqlash kod to\'g\'ri'),
-            ),
-          );
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-            return const SamplePage();
-          }));
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: Colors.red,
-              content: Text('Kod noto\'g\'ri'),
-            ),
-          );
-        }
-      }
-    }
   }
 
   @override
   void initState() {
-    resendCode();
+    print(widget.email);
+    print(widget.code);
+    verifyCode = widget.code;
     super.initState();
     _timer;
   }
@@ -171,7 +153,27 @@ class _VerifyPageState extends State<VerifyPage> {
                 height: MediaQuery.of(context).size.height * 0.055,
                 child: ElevatedButton(
                   onPressed: () {
-                    verify();
+                    if(_codeController.text.length>5){
+                      if (_codeController.text == verifyCode) {
+                        verify();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Text('Tasdiqlash kod to\'g\'ri'),
+                          ),
+                        );
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                          return const SamplePage();
+                        }));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text('Kod noto\'g\'ri'),
+                          ),
+                        );
+                      }
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
