@@ -4,6 +4,7 @@ import 'package:clock_mobile/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
@@ -98,15 +99,26 @@ class _SamplePageState extends State<SamplePage> {
                         ListTile(
                           title: Text(times[index]),
                           subtitle: Text(coments[index]),
-                          trailing: Switch(
-                            value: switchs[index] == "true" ? true : false,
-                            onChanged: (value) {
-                              setState(() {
-                                switchs[index] = value.toString();
-                              });
-                            },
-                            activeTrackColor: const Color.fromRGBO(33, 158, 188, 10), // green
-                            activeColor: Colors.white,
+                          trailing: Container(
+                            width: 100,
+                            child: FlutterSwitch(
+                              width: 50.0,
+                              height: 25.0,
+                              valueFontSize: 15.0,
+                              toggleSize: 25.0,
+                              value: switchs[index] == "true" ? true : false,
+                              borderRadius: 8.0,
+                              padding: 2.4,
+                              activeColor: Colors.white,
+                              inactiveColor: Colors.white,
+                              toggleColor: const Color.fromRGBO(33, 158, 188, 10),
+                              onToggle: (val) {
+                                setState(() {
+                                  switchs[index] = val.toString();
+                                });
+                              },
+                              //togle radius 8 and color 0xff1f1f1f and text color 0xff1f1f1f
+                            ),
                           ),
                         ),
                         const Divider(
