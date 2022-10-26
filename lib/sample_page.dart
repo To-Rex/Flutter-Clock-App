@@ -90,26 +90,24 @@ class _SamplePageState extends State<SamplePage> {
                       width: 2),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Column(
-                  children: [
-                    ListView.builder(
-                      itemCount: times.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: ListTile(
-                            title: Text(times[index]),
-                            subtitle: Text(coments[index]),
-                            trailing: Switch(
-                              value: Text(switchs[index]) == "true", onChanged: (bool value) {  },
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                )
+                child: SizedBox(
+                  height: 300,
+                  child: ListView.builder(
+                    itemCount: times.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(times[index]),
+                        subtitle: Text(coments[index]),
+                        trailing: Switch(
+                          value: Text(switchs[index]) == "true", onChanged: (bool value) {  },
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
+
           ],
         ),
       ),
