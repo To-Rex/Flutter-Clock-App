@@ -56,93 +56,97 @@ class _SamplePageState extends State<SamplePage> {
           elevation: 3,
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            //settings icon top right icon size 60 and color 0xff1f1f1f
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+      body: ListView(
+        children: [
+          Center(
+            child: Column(
               children: [
-                IconButton(
-                  icon: const Icon(Icons.settings),
-                  iconSize: 35,
-                  color: const Color.fromRGBO(33, 158, 188, 10),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const SettingsPage();
-                    }));
-                  },
+                //settings icon top right icon size 60 and color 0xff1f1f1f
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.settings),
+                      iconSize: 35,
+                      color: const Color.fromRGBO(33, 158, 188, 10),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                              return const SettingsPage();
+                            }));
+                      },
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  width: 10,
+                //times list
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 221, 221, 221),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 221, 221, 221),
+                          width: 10),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: times.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            ListTile(
+                              title: Text(times[index],
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 2, 48, 71),
+                                      textBaseline: TextBaseline.ideographic,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20)),
+                              subtitle: Text(coments[index],
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 2, 48, 71),
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 15)),
+                              trailing: SizedBox(
+                                width: 100,
+                                child: FlutterSwitch(
+                                  width: 50.0,
+                                  height: 25.0,
+                                  valueFontSize: 20.0,
+                                  toggleSize: 25.0,
+                                  value: switchs[index] == "true" ? true : false,
+                                  borderRadius: 8.0,
+                                  padding: 2.4,
+                                  activeColor: Colors.white,
+                                  inactiveColor: Colors.white,
+                                  toggleColor: const Color.fromRGBO(33, 158, 188, 10),
+                                  onToggle: (val) {
+                                    setState(() {
+                                      switchs[index] = val.toString();
+                                    });
+                                  },
+                                  //togle radius 8 and color 0xff1f1f1f and text color 0xff1f1f1f
+                                ),
+                              ),
+                            ),
+                            const Divider(
+                              height: 4,
+                              thickness: 4,
+                              color: Colors.white,
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ],
             ),
-            //times list
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 221, 221, 221),
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 221, 221, 221),
-                      width: 2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: times.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          title: Text(times[index],
-                              style: const TextStyle(
-                                  color: Color.fromARGB(255, 2, 48, 71),
-                                  textBaseline: TextBaseline.ideographic,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20)),
-                          subtitle: Text(coments[index],
-                              style: const TextStyle(
-                                  color: Color.fromARGB(255, 2, 48, 71),
-                                  overflow: TextOverflow.ellipsis,
-                                  fontSize: 15)),
-                          trailing: SizedBox(
-                            width: 100,
-                            child: FlutterSwitch(
-                              width: 50.0,
-                              height: 25.0,
-                              valueFontSize: 20.0,
-                              toggleSize: 25.0,
-                              value: switchs[index] == "true" ? true : false,
-                              borderRadius: 8.0,
-                              padding: 2.4,
-                              activeColor: Colors.white,
-                              inactiveColor: Colors.white,
-                              toggleColor: const Color.fromRGBO(33, 158, 188, 10),
-                              onToggle: (val) {
-                                setState(() {
-                                  switchs[index] = val.toString();
-                                });
-                              },
-                              //togle radius 8 and color 0xff1f1f1f and text color 0xff1f1f1f
-                            ),
-                          ),
-                        ),
-                        const Divider(
-                          height: 4,
-                          thickness: 4,
-                          color: Colors.white,
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
