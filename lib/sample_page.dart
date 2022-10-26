@@ -19,7 +19,6 @@ class _SamplePageState extends State<SamplePage> {
   var switchs = [];
   var companets = [];
 
-
   Future<void> getTemes() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token')!;
@@ -95,19 +94,31 @@ class _SamplePageState extends State<SamplePage> {
                   child: ListView.builder(
                     itemCount: times.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(times[index]),
-                        subtitle: Text(coments[index]),
-                        trailing: Switch(
-                          value: Text(switchs[index]) == "true", onChanged: (bool value) {  },
-                        ),
+                      return Column(
+                        children: [
+                          ListTile(
+                            title: Text(times[index]),
+                            subtitle: Text(coments[index]),
+                            trailing: Switch(
+                              value: switchs[index] == "true",
+                              onChanged: (value) {
+                                setState(() {
+                                });
+                              },
+                            ),
+                          ),
+                          const Divider(
+                            height: 4,
+                            thickness: 4,
+                            color: Colors.white,
+                          ),
+                        ],
                       );
                     },
                   ),
                 ),
               ),
             ),
-
           ],
         ),
       ),
