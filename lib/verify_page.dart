@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:clock_mobile/sample_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VerifyPage extends StatefulWidget {
   var email;
@@ -81,6 +82,15 @@ class _VerifyPageState extends State<VerifyPage> {
         'verefyCode': _codeController.text,
       }),
     );
+    if (response.statusCode == 200) {
+      var token = json.decoder.convert(response.body)['token'];
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', token);
+    }else{
+      setState(() {
+        widget._validateCode = true;
+      });
+    }
   }
 
   @override
