@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:clock_mobile/verify_page.dart';
@@ -54,8 +55,31 @@ class _RegisterPageState extends State<RegisterPage> {
             behavior: SnackBarBehavior.floating,
           ),
         );
+      }else{
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Qandaydir xatolik yuz berdi'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            //time out 2 sec
+            duration: Duration(milliseconds: 700),
+            //position of snackbar
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       }
     }
+  }
+
+  Future<void> valFun() async {
+    //time out 2 sec _validateEmail = false;
+    Timer(const Duration(milliseconds: 2000), () {
+      setState(() {
+        _validateemail = false;
+        _validatepassword = false;
+      });
+    });
   }
 
   @override
@@ -186,9 +210,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     _validateconfirmpassword = false;
                   });
                 }
-                if (_passwordController.text.isNotEmpty&&_passwordController.text == _confirmPasswordController.text) {
+                if (_passwordController.text.isNotEmpty&&
+                    _passwordController.text == _confirmPasswordController.text) {
                   register();
                 }else{
+                  valFun();
+                  _passwordController.clear();
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Parolni qaytadan kiriting'),
