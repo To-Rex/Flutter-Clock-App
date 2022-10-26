@@ -100,10 +100,10 @@ class _SamplePageState extends State<SamplePage> {
                             title: Text(times[index]),
                             subtitle: Text(coments[index]),
                             trailing: Switch(
-                              value: switchs[index],
+                              value: switchs[index] == "true",
                               onChanged: (value) {
                                 setState(() {
-                                  switchs[index] = value;
+                                  switchs[index] = value.toString();
                                 });
                               },
                               activeTrackColor: const Color.fromARGB(
