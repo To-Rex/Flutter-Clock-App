@@ -93,19 +93,28 @@ class _SamplePageState extends State<SamplePage> {
                   shrinkWrap: true,
                   itemCount: times.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(times[index]),
-                      subtitle: Text(coments[index]),
-                      trailing: Switch(
-                        value: switchs[index] == "true" ? true : false,
-                        onChanged: (value) {
-                          setState(() {
-                            switchs[index] = value;
-                          });
-                        },
-                        activeTrackColor: const Color.fromRGBO(33, 158, 188, 10),
-                        activeColor: const Color.fromRGBO(33, 158, 188, 10),
-                      ),
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: Text(times[index]),
+                          subtitle: Text(coments[index]),
+                          trailing: Switch(
+                            value: switchs[index] == "true" ? true : false,
+                            onChanged: (value) {
+                              setState(() {
+                                switchs[index] = value;
+                              });
+                            },
+                            activeTrackColor: const Color.fromRGBO(
+                                33, 158, 188, 10), // green
+                            activeColor: Colors.white,
+                          ),
+                        ),
+                        const Divider(
+                          height: 2,
+                          thickness: 2,
+                        ),
+                      ],
                     );
                   },
                 ),
