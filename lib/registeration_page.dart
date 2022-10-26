@@ -35,6 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
       }),
     );
     if (response.statusCode == 200) {
+      _check = false;
       print(response.body);
       var verifyCode = json.decoder.convert(response.body)['verefy'];
       Navigator.push(
@@ -44,6 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
               VerifyPage(_emailController.text, verifyCode.toString()),
         ),
       );
+      setState(() {});
     } else {
       _check = false;
       if (json.decoder.convert(response.body)['error'] !=
