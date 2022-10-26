@@ -78,6 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
       setState(() {
         _validateemail = false;
         _validatepassword = false;
+        _validateconfirmpassword = false;
       });
     });
   }
@@ -215,10 +216,17 @@ class _RegisterPageState extends State<RegisterPage> {
                   register();
                 }else{
                   valFun();
-                  _passwordController.clear();
+                  _confirmPasswordController.clear();
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Parolni qaytadan kiriting'),
+                      content: Text('Qandaydir xatolik yuz berdi'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      //time out 2 sec
+                      duration: Duration(milliseconds: 1200),
+                      //position of snackbar
+                      behavior: SnackBarBehavior.floating,
                     ),
                   );
                 }
