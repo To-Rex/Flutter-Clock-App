@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 class VerifyPage extends StatefulWidget {
   var email;
   var code;
+  bool _validateCode = false;
 
   VerifyPage(this.email, this.code, {super.key});
 
@@ -128,10 +129,13 @@ class _VerifyPageState extends State<VerifyPage> {
                   controller: _codeController,
                   textAlign: TextAlign.left,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 10, right: 10),
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(left: 10, right: 10),
                     border: InputBorder.none,
                     hintText: 'Tasdiqlash elektron pochta kodi',
+                    errorText: widget._validateCode
+                        ? 'Kodni kiriting'
+                        : null, // if _validateCode is true, errorText will be shown
                   ),
                 ),
               ),
@@ -155,6 +159,11 @@ class _VerifyPageState extends State<VerifyPage> {
                 height: MediaQuery.of(context).size.height * 0.055,
                 child: ElevatedButton(
                   onPressed: () {
+                    setState(() {
+                      _codeController.text.isEmpty
+                          ? widget._validateCode = true
+                          : widget._validateCode = false;
+                    });
                     if (_codeController.text.length > 5) {
                       if (_codeController.text == verifyCode.toString()) {
                         verify();
