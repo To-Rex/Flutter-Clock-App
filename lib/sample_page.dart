@@ -42,6 +42,7 @@ class _SamplePageState extends State<SamplePage> {
                 ),
               ],
             ),
+            
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Container(
@@ -52,12 +53,13 @@ class _SamplePageState extends State<SamplePage> {
                       width: 2),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: ListView(
+                child: Column(
                   children: [
-                    Text("Hello", style: TextStyle(fontSize: 20)),
-                    Text("Hello", style: TextStyle(fontSize: 20)),
-                    Text("Hello", style: TextStyle(fontSize: 20)),
-                    Text("Hello", style: TextStyle(fontSize: 20)),
+                    ListTile(
+                      title: const Text('data'),
+                      subtitle: const Text('data'),
+                      leading: const Icon(Icons.settings),
+                    ),
                   ],
                 )
               ),
