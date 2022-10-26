@@ -9,9 +9,15 @@ class SamplePage extends StatefulWidget {
   State<SamplePage> createState() => _SamplePageState();
 }
 
+var token = "";
+
 Future<void> getTemes() async {
   final response = await http.get(
-    Uri.parse("https://calcappworks.herokuapp.com/getthemes"),
+    Uri.parse("https://calcappworks.herokuapp.com/gettimes"),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token',
+    },
   );
 }
 
