@@ -1,4 +1,3 @@
-
 import 'package:clock_mobile/settings_page.dart';
 import 'package:flutter/material.dart';
 
@@ -30,9 +29,10 @@ class _SamplePageState extends State<SamplePage> {
                 IconButton(
                   icon: const Icon(Icons.settings),
                   iconSize: 35,
-                  color: const Color(0xff1f1f1f),
+                  color: const Color.fromRGBO(33, 158, 188, 10),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return const SettingsPage();
                     }));
                   },
@@ -49,7 +49,12 @@ class _SamplePageState extends State<SamplePage> {
         onPressed: () {
           // Add your onPressed code here!
         },
-        child: const Icon(Icons.add),
+        backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
+        child: const Icon(
+          Icons.add,
+          size: 35,
+          color: Color.fromARGB(255, 2, 48, 71),
+        ),
       ),
     );
   }
