@@ -15,6 +15,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late final _emailController = TextEditingController();
   late final _passwordController = TextEditingController();
+  bool _validateEmail = false;
+  bool _validatepassword = false;
 
   @override
   void initState() {
@@ -101,10 +103,11 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _emailController,
                   textAlign: TextAlign.left,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 10, right: 10),
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(left: 10, right: 10),
                     border: InputBorder.none,
                     hintText: 'Pochta',
+                    errorText: _validateEmail ? 'Pochta kiriting' : null,
                   ),
                 ),
               ),
@@ -128,10 +131,11 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _passwordController,
                   textAlign: TextAlign.left,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 10, right: 10),
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(left: 10, right: 10),
                     border: InputBorder.none,
                     hintText: 'Parol',
+                    errorText: _validatepassword ? 'Parol kiriting' : null,
                   ),
                 ),
               ),
@@ -167,7 +171,36 @@ class _LoginPageState extends State<LoginPage> {
                 height: MediaQuery.of(context).size.height * 0.055,
                 child: ElevatedButton(
                   onPressed: () {
-                    _login();
+                    if (_emailController.text.isEmpty) {
+                      setState(() {
+                        _validateEmail = true;
+                      });
+                    } else {
+                      setState(() {
+                        _validateEmail = false;
+                      });
+                    }
+                    if (_passwordController.text.isEmpty) {
+                      setState(() {
+                        _validatepassword = true;
+                      });
+                    } else {
+                      setState(() {
+                        _validatepassword = false;
+                      });
+                    }
+                    if (_emailController.text.isNotEmpty &&
+                        _passwordController.text.isNotEmpty&&
+                        _emailController.text.length>5&&
+                        _passwordController.text.length>4) {
+                      _login();
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Nimadur xato Ketdi'),
+                        ),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
