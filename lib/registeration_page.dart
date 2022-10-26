@@ -41,7 +41,20 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       );
     } else {
-      print(response.body);
+      if(json.decoder.convert(response.body)['error'] != "email already exist"){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Buning email bilan ro\'yxatdan o\'tmagan'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            //time out 2 sec
+            duration: Duration(milliseconds: 700),
+            //position of snackbar
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
     }
   }
 
