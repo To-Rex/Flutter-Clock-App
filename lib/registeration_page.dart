@@ -22,6 +22,8 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _check = false;
 
   Future<void> register() async {
+    _check = true;
+    setState(() {});
     final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/register"),
       headers: <String, String>{
@@ -43,7 +45,9 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       );
     } else {
-      if(json.decoder.convert(response.body)['error'] != "email already exist"){
+      _check = false;
+      if (json.decoder.convert(response.body)['error'] !=
+          "email already exist") {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Buning email bilan ro\'yxatdan o\'tmagan'),
@@ -56,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
             behavior: SnackBarBehavior.floating,
           ),
         );
-      }else{
+      } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Qandaydir xatolik yuz berdi'),
@@ -76,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> valFun() async {
     //time out 2 sec _validateEmail = false;
     Timer(const Duration(milliseconds: 2000), () {
+      _check = false;
       setState(() {
         _validateemail = false;
         _validatepassword = false;
@@ -113,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
               textAlign: TextAlign.left,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 10, right: 10),
+                contentPadding: const EdgeInsets.only(left: 10, right: 10),
                 border: InputBorder.none,
                 hintText: 'Pochta',
                 errorText: _validateemail ? 'Pochta kiriting' : null,
@@ -178,75 +183,78 @@ class _RegisterPageState extends State<RegisterPage> {
         const SizedBox(
           height: 15,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.055,
-            child: ElevatedButton(
-              onPressed: () {
-                if (_emailController.text.isEmpty) {
-                  setState(() {
-                    _validateemail = true;
-                  });
-                } else {
-                  setState(() {
-                    _validateemail = false;
-                  });
-                }
-                if (_passwordController.text.isEmpty) {
-                  setState(() {
-                    _validatepassword = true;
-                  });
-                } else {
-                  setState(() {
-                    _validatepassword = false;
-                  });
-                }
-                if (_confirmPasswordController.text.isEmpty) {
-                  setState(() {
-                    _validateconfirmpassword = true;
-                  });
-                } else {
-                  setState(() {
-                    _validateconfirmpassword = false;
-                  });
-                }
-                if (_passwordController.text.isNotEmpty&&
-                    _passwordController.text == _confirmPasswordController.text) {
-                  register();
-                }else{
-                  valFun();
-                  _confirmPasswordController.clear();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Qandaydir xatolik yuz berdi'),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+        if (!_check)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.055,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_emailController.text.isEmpty) {
+                    setState(() {
+                      _validateemail = true;
+                    });
+                  } else {
+                    setState(() {
+                      _validateemail = false;
+                    });
+                  }
+                  if (_passwordController.text.isEmpty) {
+                    setState(() {
+                      _validatepassword = true;
+                    });
+                  } else {
+                    setState(() {
+                      _validatepassword = false;
+                    });
+                  }
+                  if (_confirmPasswordController.text.isEmpty) {
+                    setState(() {
+                      _validateconfirmpassword = true;
+                    });
+                  } else {
+                    setState(() {
+                      _validateconfirmpassword = false;
+                    });
+                  }
+                  if (_passwordController.text.isNotEmpty &&
+                      _passwordController.text ==
+                          _confirmPasswordController.text) {
+                    _check = true;
+                    setState(() {});
+                    register();
+                  } else {
+                    valFun();
+                    _confirmPasswordController.clear();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Qandaydir xatolik yuz berdi'),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        //time out 2 sec
+                        duration: Duration(milliseconds: 1200),
+                        //position of snackbar
+                        behavior: SnackBarBehavior.floating,
                       ),
-                      //time out 2 sec
-                      duration: Duration(milliseconds: 1200),
-                      //position of snackbar
-                      behavior: SnackBarBehavior.floating,
-                    ),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
-              ),
-              child: const Text(
-                'Ro\'yxatdan o\'tish',
+                child: const Text(
+                  'Ro\'yxatdan o\'tish',
+                ),
               ),
             ),
           ),
-        ),
-
+        if (_check) const CircularProgressIndicator(),
         //bottom sign up text password
         const Expanded(child: Text('')),
-        if(!_check)
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: Row(
@@ -275,8 +283,6 @@ class _RegisterPageState extends State<RegisterPage> {
             ],
           ),
         ),
-        if(_check)
-            const CircularProgressIndicator(),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.05,
         ),
