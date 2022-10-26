@@ -262,7 +262,6 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ),
-
             //login button
             if(!_check)
             Padding(
