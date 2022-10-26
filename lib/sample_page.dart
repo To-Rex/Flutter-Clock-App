@@ -79,55 +79,46 @@ class _SamplePageState extends State<SamplePage> {
               ],
             ),
             //times list
-            ListView(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 221, 221, 221),
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 221, 221, 221),
-                              width: 2),
-                          borderRadius: BorderRadius.circular(10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 221, 221, 221),
+                  border: Border.all(
+                      color: const Color.fromARGB(255, 221, 221, 221),
+                      width: 2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: times.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: Text(times[index]),
+                          subtitle: Text(coments[index]),
+                          trailing: Switch(
+                            value: switchs[index] == "true" ? true : false,
+                            onChanged: (value) {
+                              setState(() {
+                                switchs[index] = value.toString();
+                              });
+                            },
+                            activeTrackColor: const Color.fromRGBO(33, 158, 188, 10), // green
+                            activeColor: Colors.white,
+                          ),
                         ),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: times.length,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                ListTile(
-                                  title: Text(times[index]),
-                                  subtitle: Text(coments[index]),
-                                  trailing: Switch(
-                                    value: switchs[index] == "true" ? true : false,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        switchs[index] = value.toString();
-                                      });
-                                    },
-                                    activeTrackColor: const Color.fromRGBO(
-                                        33, 158, 188, 10), // green
-                                    activeColor: Colors.white,
-                                  ),
-                                ),
-                                const Divider(
-                                  height: 4,
-                                  thickness: 4,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            );
-                          },
+                        const Divider(
+                          height: 4,
+                          thickness: 4,
+                          color: Colors.white,
                         ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
+                      ],
+                    );
+                  },
+                ),
+              ),
             ),
           ],
         ),
