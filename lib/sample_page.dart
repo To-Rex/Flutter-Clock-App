@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:clock_mobile/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +14,11 @@ class SamplePage extends StatefulWidget {
 
 class _SamplePageState extends State<SamplePage> {
   var token = "";
+  var times = [];
+  var coments = [];
+  var switchs = [];
+  var companets = [];
+
 
   Future<void> getTemes() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -24,6 +31,13 @@ class _SamplePageState extends State<SamplePage> {
       },
     );
     print(response.body);
+    var data = jsonDecode(response.body);
+    times = data['times'];
+    coments = data['coments'];
+    switchs = data['switch'];
+    companets = data['companets'];
+    print(times);
+    setState(() {});
   }
 
   @override
