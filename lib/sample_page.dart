@@ -111,8 +111,9 @@ class _SamplePageState extends State<SamplePage> {
                           ),
                         ),
                         const Divider(
-                          height: 2,
-                          thickness: 2,
+                          height: 4,
+                          thickness: 4,
+                          color: Colors.white,
                         ),
                       ],
                     );
