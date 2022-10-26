@@ -1,4 +1,5 @@
 
+import 'package:clock_mobile/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class SamplePage extends StatefulWidget {
@@ -31,6 +32,9 @@ class _SamplePageState extends State<SamplePage> {
                   iconSize: 35,
                   color: const Color(0xff1f1f1f),
                   onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return const SettingsPage();
+                    }));
                   },
                 ),
                 const SizedBox(
