@@ -15,6 +15,9 @@ class _RegisterPageState extends State<RegisterPage> {
   late final _emailController = TextEditingController();
   late final _passwordController = TextEditingController();
   late final _confirmPasswordController = TextEditingController();
+  bool _validateemail = false;
+  bool _validatepassword = false;
+  bool _validateconfirmpassword = false;
 
   Future<void> register() async {
     final response = await http.post(
@@ -33,13 +36,15 @@ class _RegisterPageState extends State<RegisterPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => VerifyPage(_emailController.text, verifyCode.toString()),
+          builder: (context) =>
+              VerifyPage(_emailController.text, verifyCode.toString()),
         ),
       );
     } else {
       print(response.body);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,23 +67,18 @@ class _RegisterPageState extends State<RegisterPage> {
                   color: const Color.fromARGB(255, 221, 221, 221), width: 2),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: TextFormField(
+            child: TextField(
               // The validator receives the text that the user has entered.
               cursorColor: Colors.deepPurpleAccent,
               controller: _emailController,
               textAlign: TextAlign.left,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(left: 10, right: 10),
                 border: InputBorder.none,
                 hintText: 'Pochta',
+                errorText: _validateemail ? 'Pochta kiriting' : null,
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
         ),
@@ -99,10 +99,11 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: _passwordController,
               textAlign: TextAlign.left,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(left: 10, right: 10),
                 border: InputBorder.none,
                 hintText: 'Parol',
+                errorText: _validatepassword ? 'Parol kiriting' : null,
               ),
             ),
           ),
@@ -124,10 +125,13 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: _confirmPasswordController,
               textAlign: TextAlign.left,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(left: 10, right: 10),
                 border: InputBorder.none,
                 hintText: 'Parolni qaytadan kiriting',
+                errorText: _validateconfirmpassword
+                    ? 'Parolni qaytadan kiriting'
+                    : null,
               ),
             ),
           ),
@@ -142,16 +146,41 @@ class _RegisterPageState extends State<RegisterPage> {
             height: MediaQuery.of(context).size.height * 0.055,
             child: ElevatedButton(
               onPressed: () {
-                if(_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty && _confirmPasswordController.text.isNotEmpty){
-                  if (_passwordController.text ==
-                      _confirmPasswordController.text) {
-                    register();
-                  } else {
-                    print("passwords don't match");
-                  }
+                if (_emailController.text.isEmpty) {
+                  setState(() {
+                    _validateemail = true;
+                  });
+                } else {
+                  setState(() {
+                    _validateemail = false;
+                  });
+                }
+                if (_passwordController.text.isEmpty) {
+                  setState(() {
+                    _validatepassword = true;
+                  });
+                } else {
+                  setState(() {
+                    _validatepassword = false;
+                  });
+                }
+                if (_confirmPasswordController.text.isEmpty) {
+                  setState(() {
+                    _validateconfirmpassword = true;
+                  });
+                } else {
+                  setState(() {
+                    _validateconfirmpassword = false;
+                  });
+                }
+                if (_passwordController.text == _confirmPasswordController.text) {
+                  register();
                 }else{
-                  style: Theme.of(context).textTheme.headline6;
-                  print("empty fields");
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Parolni qaytadan kiriting'),
+                    ),
+                  );
                 }
               },
               style: ElevatedButton.styleFrom(
