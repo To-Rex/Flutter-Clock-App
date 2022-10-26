@@ -42,7 +42,6 @@ class _SamplePageState extends State<SamplePage> {
                 ),
               ],
             ),
-            
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Container(
@@ -56,9 +55,8 @@ class _SamplePageState extends State<SamplePage> {
                 child: Column(
                   children: [
                     ListTile(
-                      title: const Text('data'),
-                      subtitle: const Text('data'),
-                      leading: const Icon(Icons.settings),
+                      title: const Text('Tasdiqlash elektron pochta kodi'),
+                      subtitle: const Text('Kodni kiriting'),
                     ),
                   ],
                 )
