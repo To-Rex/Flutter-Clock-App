@@ -20,6 +20,7 @@ class _VerifyPageState extends State<VerifyPage> {
   late final _codeController = TextEditingController();
   late int _counter = 60;
   var verifyCode = "";
+  var token;
 
   late final _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
     setState(() {
@@ -52,8 +53,6 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   Future<void> resendCode() async {
-    print(widget.email);
-    print(widget.code);
     final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/resendverefy"),
       body: jsonEncode(<String, String>{
@@ -83,7 +82,7 @@ class _VerifyPageState extends State<VerifyPage> {
       }),
     );
     if (response.statusCode == 200) {
-      var token = json.decoder.convert(response.body)['token'];
+      token = json.decoder.convert(response.body)['token'];
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
     }else{
