@@ -210,6 +210,13 @@ class _LoginPageState extends State<LoginPage> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Nimadur xato Ketdi'),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          //time out 2 sec
+                          duration: Duration(milliseconds: 700),
+                          //position of snackbar
+                          behavior: SnackBarBehavior.floating,
                         ),
                       );
                     }
