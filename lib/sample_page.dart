@@ -79,24 +79,23 @@ class _SamplePageState extends State<SamplePage> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 221, 221, 221),
-                    border: Border.all(
-                        color: const Color.fromARGB(255, 221, 221, 221),
-                        width: 2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: const Text('Tasdiqlash elektron pochta kodi'),
-                        subtitle: const Text('Kodni kiriting'),
+            //times list
+            SizedBox(
+              height: 500,
+              child: ListView.builder(
+                itemCount: times.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      title: Text(times[index]),
+                      subtitle: Text(coments[index]),
+                      trailing: Switch(
+                        value: Text(switchs[index]) == "true", onChanged: (bool value) {  },
                       ),
-                    ],
-                  )),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
