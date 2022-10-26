@@ -102,7 +102,7 @@ class _SamplePageState extends State<SamplePage> {
                             value: switchs[index] == "true" ? true : false,
                             onChanged: (value) {
                               setState(() {
-                                switchs[index] = value;
+                                switchs[index] = value.toString();
                               });
                             },
                             activeTrackColor: const Color.fromRGBO(
