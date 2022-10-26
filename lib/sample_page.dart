@@ -19,10 +19,28 @@ class _SamplePageState extends State<SamplePage> {
           elevation: 3,
         ),
       ),
-      body: const Center(
-        child: Text('Sample Page'),
+      body: Center(
+        child: Column(
+          children: [
+            //settings icon top right icon size 60 and color 0xff1f1f1f
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.settings),
+                  iconSize: 35,
+                  color: const Color(0xff1f1f1f),
+                  onPressed: () {
+                  },
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Add your onPressed code here!
