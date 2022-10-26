@@ -52,16 +52,14 @@ class _SamplePageState extends State<SamplePage> {
                       width: 2),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: TextField(
-                  cursorColor: Colors.deepPurpleAccent,
-                  textAlign: TextAlign.left,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.only(left: 10, right: 10),
-                    border: InputBorder.none,
-                    hintText: 'Pochta',
-                  ),
-                ),
+                child: ListView(
+                  children: [
+                    Text("Hello", style: TextStyle(fontSize: 20)),
+                    Text("Hello", style: TextStyle(fontSize: 20)),
+                    Text("Hello", style: TextStyle(fontSize: 20)),
+                    Text("Hello", style: TextStyle(fontSize: 20)),
+                  ],
+                )
               ),
             ),
           ],
