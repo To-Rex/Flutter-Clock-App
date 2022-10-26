@@ -40,29 +40,29 @@ class _SamplePageState extends State<SamplePage> {
                 const SizedBox(
                   width: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 221, 221, 221),
+                  border: Border.all(
                       color: const Color.fromARGB(255, 221, 221, 221),
-                      border: Border.all(
-                          color: const Color.fromARGB(255, 221, 221, 221),
-                          width: 2),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextField(
-                      cursorColor: Colors.deepPurpleAccent,
-                      textAlign: TextAlign.left,
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.only(left: 10, right: 10),
-                        border: InputBorder.none,
-                        hintText: 'Pochta',
-                      ),
-                    ),
+                      width: 2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: TextField(
+                  cursorColor: Colors.deepPurpleAccent,
+                  textAlign: TextAlign.left,
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(left: 10, right: 10),
+                    border: InputBorder.none,
+                    hintText: 'Pochta',
                   ),
                 ),
-              ],
+              ),
             ),
           ],
         ),
