@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:clock_mobile/registeration_page.dart';
@@ -62,6 +63,16 @@ class _LoginPageState extends State<LoginPage> {
       }
       print(response.body);
     }
+  }
+
+  Future<void> valFun() async {
+    //time out 2 sec _validateEmail = false;
+    Timer(const Duration(milliseconds: 2000), () {
+      setState(() {
+        _validateEmail = false;
+        _validatepassword = false;
+      });
+    });
   }
 
   @override
@@ -195,6 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                         _passwordController.text.length>4) {
                       _login();
                     }else{
+                      valFun();
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Nimadur xato Ketdi'),
