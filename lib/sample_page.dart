@@ -106,15 +106,14 @@ class _SamplePageState extends State<SamplePage> {
                           subtitle: Text(coments[index],
                               style: const TextStyle(
                                   color: Color.fromARGB(255, 2, 48, 71),
-                                  textBaseline: TextBaseline.alphabetic,
-                                  decorationThickness: 2,
+                                  overflow: TextOverflow.ellipsis,
                                   fontSize: 15)),
                           trailing: SizedBox(
                             width: 100,
                             child: FlutterSwitch(
                               width: 50.0,
                               height: 25.0,
-                              valueFontSize: 15.0,
+                              valueFontSize: 20.0,
                               toggleSize: 25.0,
                               value: switchs[index] == "true" ? true : false,
                               borderRadius: 8.0,
