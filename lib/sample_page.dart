@@ -12,8 +12,12 @@ class _SamplePageState extends State<SamplePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sample Page'),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(0.0),
+        child: AppBar(
+          backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
+          elevation: 3,
+        ),
       ),
       body: const Center(
         child: Text('Sample Page'),
