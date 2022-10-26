@@ -1,11 +1,18 @@
 import 'package:clock_mobile/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
 
   @override
   State<SamplePage> createState() => _SamplePageState();
+}
+
+Future<void> getTemes() async {
+  final response = await http.get(
+    Uri.parse("https://calcappworks.herokuapp.com/getthemes"),
+  );
 }
 
 class _SamplePageState extends State<SamplePage> {
