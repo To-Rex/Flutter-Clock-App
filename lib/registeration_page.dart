@@ -19,6 +19,7 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _validateemail = false;
   bool _validatepassword = false;
   bool _validateconfirmpassword = false;
+  bool _check = false;
 
   Future<void> register() async {
     final response = await http.post(
@@ -245,6 +246,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
         //bottom sign up text password
         const Expanded(child: Text('')),
+        if(!_check)
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: Row(
@@ -273,6 +275,8 @@ class _RegisterPageState extends State<RegisterPage> {
             ],
           ),
         ),
+        if(_check)
+            const CircularProgressIndicator(),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.05,
         ),
