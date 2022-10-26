@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
       }
 
       if(json.decoder.convert(response.body)['error']=='email is incorrect') {
-        _emailController.clear();
+        _passwordController.clear();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('pochta topilmadi'),
@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             //time out 2 sec
-            duration: Duration(milliseconds: 700),
+            duration: Duration(milliseconds: 1700),
             //position of snackbar
             behavior: SnackBarBehavior.floating,
           ),
