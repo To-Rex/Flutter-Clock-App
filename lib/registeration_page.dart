@@ -173,7 +173,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     _validateconfirmpassword = false;
                   });
                 }
-                if (_passwordController.text == _confirmPasswordController.text) {
+                if (_passwordController.text.isNotEmpty&&_passwordController.text == _confirmPasswordController.text) {
                   register();
                 }else{
                   ScaffoldMessenger.of(context).showSnackBar(
