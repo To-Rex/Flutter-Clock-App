@@ -92,7 +92,6 @@ class _LoginPageState extends State<LoginPage> {
             behavior: SnackBarBehavior.floating,
           ),
         );
-        _login();
         _check = false;
       }
       if(json.decoder.convert(response.body)['error']=='password is incorrect') {
