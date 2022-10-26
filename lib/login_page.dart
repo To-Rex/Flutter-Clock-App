@@ -35,7 +35,13 @@ class _LoginPageState extends State<LoginPage> {
     if (response.statusCode == 200) {
       verifyCode = json.decoder.convert(response.body)['verefyCode'];
       print(verifyCode);
-      VerifyPage(_emailController.text, verifyCode);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              VerifyPage(_emailController.text, verifyCode.toString()),
+        ),
+      );
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('pochtangiz tekshirib ko\'ring'),
@@ -92,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
             behavior: SnackBarBehavior.floating,
           ),
         );
+        resendCode();
         _check = false;
       }
       if(json.decoder.convert(response.body)['error']=='password is incorrect') {
