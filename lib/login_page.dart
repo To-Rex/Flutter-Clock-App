@@ -78,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
             return const SamplePage();
           }));
     } else {
-      _check = false;
       setState(() {});
       if(json.decoder.convert(response.body)['error']=='email is not verified') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -94,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
         _login();
+        _check = false;
       }
       if(json.decoder.convert(response.body)['error']=='password is incorrect') {
         _passwordController.clear();
@@ -109,25 +109,40 @@ class _LoginPageState extends State<LoginPage> {
             behavior: SnackBarBehavior.floating,
           ),
         );
+        _check = false;
       }
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => VerifyPage("","dev.dilshodjon@gmail.com"),
-      //   ),
-      // );
-      if (response.statusCode == 401) {
+      if(json.decoder.convert(response.body)['error']=='user is blocked') {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Invalid Credentials'),
+            backgroundColor: Colors.red,
+            content: Text('Akkauntingiz bloklangan Managerga murojaat qiling'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            //time out 2 sec
+            duration: Duration(milliseconds: 1900),
+            //position of snackbar
+            behavior: SnackBarBehavior.floating,
           ),
         );
-      } else {
+        _check = false;
+      }
+
+      if(json.decoder.convert(response.body)['error']=='email is incorrect') {
+        _emailController.clear();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Something went wrong'),
+            content: Text('pochta topilmadi'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            //time out 2 sec
+            duration: Duration(milliseconds: 700),
+            //position of snackbar
+            behavior: SnackBarBehavior.floating,
           ),
         );
+        _check = false;
       }
       print(response.body);
     }
