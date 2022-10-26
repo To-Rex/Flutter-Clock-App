@@ -40,7 +40,6 @@ class _RegisterPageState extends State<RegisterPage> {
       print(response.body);
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +62,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   color: const Color.fromARGB(255, 221, 221, 221), width: 2),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: TextField(
+            child: TextFormField(
+              // The validator receives the text that the user has entered.
               cursorColor: Colors.deepPurpleAccent,
               controller: _emailController,
               textAlign: TextAlign.left,
@@ -73,6 +73,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 border: InputBorder.none,
                 hintText: 'Pochta',
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
             ),
           ),
         ),
@@ -136,11 +142,16 @@ class _RegisterPageState extends State<RegisterPage> {
             height: MediaQuery.of(context).size.height * 0.055,
             child: ElevatedButton(
               onPressed: () {
-                if (_passwordController.text ==
-                    _confirmPasswordController.text) {
-                  register();
-                } else {
-                  print("passwords don't match");
+                if(_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty && _confirmPasswordController.text.isNotEmpty){
+                  if (_passwordController.text ==
+                      _confirmPasswordController.text) {
+                    register();
+                  } else {
+                    print("passwords don't match");
+                  }
+                }else{
+                  style: Theme.of(context).textTheme.headline6;
+                  print("empty fields");
                 }
               },
               style: ElevatedButton.styleFrom(
