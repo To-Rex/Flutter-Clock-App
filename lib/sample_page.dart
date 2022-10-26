@@ -40,6 +40,27 @@ class _SamplePageState extends State<SamplePage> {
     setState(() {});
   }
 
+  //add time function
+  Future<void> addTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token')!;
+    print(token);
+    final response = await http.post(
+      Uri.parse("https://calcappworks.herokuapp.com/addtime"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(<String, String>{
+        'times': "00:00",
+        'coments': "coment",
+        'switch': "false",
+      }),
+    );
+    print(response.body);
+    getTemes();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -72,8 +93,8 @@ class _SamplePageState extends State<SamplePage> {
                       onPressed: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                              return const SettingsPage();
-                            }));
+                          return const SettingsPage();
+                        }));
                       },
                     ),
                     const SizedBox(
@@ -117,12 +138,14 @@ class _SamplePageState extends State<SamplePage> {
                                   height: 25.0,
                                   valueFontSize: 20.0,
                                   toggleSize: 25.0,
-                                  value: switchs[index] == "true" ? true : false,
+                                  value:
+                                      switchs[index] == "true" ? true : false,
                                   borderRadius: 8.0,
                                   padding: 2.4,
                                   activeColor: Colors.white,
                                   inactiveColor: Colors.white,
-                                  toggleColor: const Color.fromRGBO(33, 158, 188, 10),
+                                  toggleColor:
+                                      const Color.fromRGBO(33, 158, 188, 10),
                                   onToggle: (val) {
                                     setState(() {
                                       switchs[index] = val.toString();
@@ -151,6 +174,7 @@ class _SamplePageState extends State<SamplePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Add your onPressed code here!
+          addTime();
         },
         backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
         child: const Icon(
