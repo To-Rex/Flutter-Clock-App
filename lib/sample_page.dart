@@ -97,9 +97,19 @@ class _SamplePageState extends State<SamplePage> {
                     return Column(
                       children: [
                         ListTile(
-                          title: Text(times[index]),
-                          subtitle: Text(coments[index]),
-                          trailing: Container(
+                          title: Text(times[index],
+                              style: const TextStyle(
+                                  color: Color.fromARGB(255, 2, 48, 71),
+                                  textBaseline: TextBaseline.ideographic,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20)),
+                          subtitle: Text(coments[index],
+                              style: const TextStyle(
+                                  color: Color.fromARGB(255, 2, 48, 71),
+                                  textBaseline: TextBaseline.alphabetic,
+                                  decorationThickness: 2,
+                                  fontSize: 15)),
+                          trailing: SizedBox(
                             width: 100,
                             child: FlutterSwitch(
                               width: 50.0,
