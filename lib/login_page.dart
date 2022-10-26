@@ -19,10 +19,44 @@ class _LoginPageState extends State<LoginPage> {
   bool _validateEmail = false;
   bool _validatepassword = false;
   bool _check = false;
+  var verifyCode = "";
 
   @override
   void initState() {
     super.initState();
+  }
+  Future<void> resendCode() async {
+    final response = await http.post(
+      Uri.parse("https://calcappworks.herokuapp.com/resendverefy"),
+      body: jsonEncode(<String, String>{
+        'email': _emailController.text,
+      }),
+    );
+    if (response.statusCode == 200) {
+      verifyCode = json.decoder.convert(response.body)['verefyCode'];
+      print(verifyCode);
+      VerifyPage(_emailController.text, verifyCode);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('pochtangiz tekshirib ko\'ring'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          //time out 2 sec
+          duration: Duration(milliseconds: 700),
+          //position of snackbar
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    } else {
+      //snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Kodni yuborishda xatolik'),
+        ),
+      );
+    }
   }
 
   Future<void> _login() async {
@@ -47,7 +81,34 @@ class _LoginPageState extends State<LoginPage> {
       _check = false;
       setState(() {});
       if(json.decoder.convert(response.body)['error']=='email is not verified') {
-        print('Ajoyib');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('pochtangiz tasdiqlanmagan'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            //time out 2 sec
+            duration: Duration(milliseconds: 700),
+            //position of snackbar
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+        _login();
+      }
+      if(json.decoder.convert(response.body)['error']=='password is incorrect') {
+        _passwordController.clear();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('parol xato'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            //time out 2 sec
+            duration: Duration(milliseconds: 700),
+            //position of snackbar
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       }
       // Navigator.push(
       //   context,
