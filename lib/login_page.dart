@@ -18,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   late final _passwordController = TextEditingController();
   bool _validateEmail = false;
   bool _validatepassword = false;
+  bool _check = false;
 
   @override
   void initState() {
@@ -25,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _login() async {
+    _check = true;
     final response = await http.post(
       Uri.parse(
           "https://calcappworks.herokuapp.com/login"),
@@ -42,12 +44,17 @@ class _LoginPageState extends State<LoginPage> {
             return const SamplePage();
           }));
     } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => VerifyPage("","dev.dilshodjon@gmail.com"),
-        ),
-      );
+      _check = false;
+      setState(() {});
+      if(json.decoder.convert(response.body)['error']=='email is not verified') {
+        print('Ajoyib');
+      }
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => VerifyPage("","dev.dilshodjon@gmail.com"),
+      //   ),
+      // );
       if (response.statusCode == 401) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -175,6 +182,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             //login button
+            if(!_check)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: SizedBox(
@@ -237,6 +245,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+            if(_check)
+              const CircularProgressIndicator(),
             //bottom sign up text password
             const Expanded(child: Text('')),
             Padding(
