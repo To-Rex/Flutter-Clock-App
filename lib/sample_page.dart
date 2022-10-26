@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:clock_mobile/settings_page.dart';
-import 'package:custom_switch/custom_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -100,14 +99,16 @@ class _SamplePageState extends State<SamplePage> {
                           ListTile(
                             title: Text(times[index]),
                             subtitle: Text(coments[index]),
-                            trailing: CustomSwitch(
-                              activeColor: Colors.pinkAccent,
+                            trailing: Switch(
                               value: switchs[index],
                               onChanged: (value) {
                                 setState(() {
                                   switchs[index] = value;
                                 });
                               },
+                              activeTrackColor: const Color.fromARGB(
+                                  255, 33, 158, 188), // green
+                              activeColor: Colors.white,
                             ),
                           ),
                           const Divider(
