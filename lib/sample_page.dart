@@ -134,7 +134,7 @@ class _SamplePageState extends State<SamplePage> {
                 ),
                 if(_isLoading)
                   const CircularProgressIndicator()
-                else
+                 else
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
@@ -147,8 +147,10 @@ class _SamplePageState extends State<SamplePage> {
                       onPressed: () {
                         _isLoading ? null : addTime();
                         _switchControle.text = "true";
-                        addTime();
                         setState(() {});
+                        addTime();
+                        //dialogdan chiqish
+                        Navigator.of(context).pop();
                       },
                       child: const Text(
                         "Saqlash",
