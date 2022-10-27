@@ -59,7 +59,7 @@ class _SamplePageState extends State<SamplePage> {
       body: jsonEncode(<String, String>{
         'times': "15:00",
         'coments': "coment",
-        'switch': "false",
+        'switch': "true",
       }),
     );
     print(response.body);
@@ -94,6 +94,26 @@ class _SamplePageState extends State<SamplePage> {
                       _timesControlle.text = time.toString();
                     });
                   },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  controller: _comentControle,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Coment',
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    addTime();
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Add"),
                 ),
               ],
             )
