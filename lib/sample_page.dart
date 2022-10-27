@@ -14,6 +14,10 @@ class SamplePage extends StatefulWidget {
 }
 
 class _SamplePageState extends State<SamplePage> {
+  late final _timesControlle = TextEditingController();
+  late final _comentControle = TextEditingController();
+  late final _switchControle = TextEditingController();
+  bool _validateEmail = false;
   var token = "";
   var times = [];
   var coments = [];
@@ -60,10 +64,40 @@ class _SamplePageState extends State<SamplePage> {
     getTemes();
   }
 
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Add time"),
+          content: const Text("Do you want to add time?"),
+          actions: <Widget>[
+            Column(
+              children: [
+                //time picker widget here
+
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     getTemes();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _timesControlle.dispose();
+    _comentControle.dispose();
+    _switchControle.dispose();
+
   }
 
   @override
@@ -205,7 +239,8 @@ class _SamplePageState extends State<SamplePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Add your onPressed code here!
-          addTime();
+          _showDialog();
+         // addTime();
         },
         backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
         child: const Icon(
