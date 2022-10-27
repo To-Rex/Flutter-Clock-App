@@ -44,15 +44,14 @@ class _SamplePageState extends State<SamplePage> {
   Future<void> addTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token')!;
-    print(token);
     final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/addtime"),
       headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode(<String, String>{
-        'times': "00:00",
+        'times': "12:00",
         'coments': "coment",
         'switch': "false",
       }),
