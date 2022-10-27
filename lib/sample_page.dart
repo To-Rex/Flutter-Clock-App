@@ -191,6 +191,7 @@ class _SamplePageState extends State<SamplePage> {
                           _switchControle.text = "true";
                           setState(() {});
                           addTime();
+                          _isLoading = true;
                           //dialogdan chiqish
                           Navigator.of(context).pop();
                         },
