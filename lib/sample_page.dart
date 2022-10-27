@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:clock_mobile/settings_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
+
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
 
@@ -62,16 +65,6 @@ class _SamplePageState extends State<SamplePage> {
     print(response.body);
     getTemes();
   }
-  void _showDatePicker() {
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2021),
-      lastDate: DateTime(2022),
-    ).then((date) {
-      print(date);
-    });
-  }
 
   void _showDialog() {
     showDialog(
@@ -83,8 +76,26 @@ class _SamplePageState extends State<SamplePage> {
           actions: <Widget>[
             Column(
               children: [
-                //time picker widget here
-
+                
+                TimePickerSpinner(
+                  is24HourMode: true,
+                  alignment: Alignment.center,
+                  isShowSeconds: false,
+                  time: DateTime.now(),
+                  normalTextStyle: const TextStyle(
+                      fontSize: 20, color: Colors.black12),
+                  highlightedTextStyle: const TextStyle(
+                      fontSize: 28, color: Color.fromRGBO(33, 158, 188, 10)),
+                  spacing: 30,
+                  itemHeight: 50,
+                  isForce2Digits: false,
+                  minutesInterval: 1,
+                  onTimeChange: (time) {
+                    setState(() {
+                      _timesControlle.text = time.toString();
+                    });
+                  },
+                ),
               ],
             )
           ],
