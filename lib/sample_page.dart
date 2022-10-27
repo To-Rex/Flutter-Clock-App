@@ -76,7 +76,6 @@ class _SamplePageState extends State<SamplePage> {
           actions: <Widget>[
             Column(
               children: [
-                
                 TimePickerSpinner(
                   is24HourMode: true,
                   alignment: Alignment.center,
