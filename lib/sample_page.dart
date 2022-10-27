@@ -48,6 +48,8 @@ class _SamplePageState extends State<SamplePage> {
 
   //add time function
   Future<void> addTime() async {
+    //_timesControlle.text; parse to 24 hour format
+    var clock = _timesControlle.text.substring(11,16);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token')!;
     final response = await http.post(
@@ -57,7 +59,7 @@ class _SamplePageState extends State<SamplePage> {
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode(<String, String>{
-        'times': _timesControlle.text,
+        'times': clock,
         'coments': _comentControle.text,
         'switch': _switchControle.text,
       }),
