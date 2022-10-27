@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:clock_mobile/settings_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +18,6 @@ class _SamplePageState extends State<SamplePage> {
   late final _timesControlle = TextEditingController();
   late final _comentControle = TextEditingController();
   late final _switchControle = TextEditingController();
-  bool _validateEmail = false;
   var token = "";
   var times = [];
   var coments = [];
@@ -119,12 +117,11 @@ class _SamplePageState extends State<SamplePage> {
                       controller: _comentControle,
                       textAlign: TextAlign.left,
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
+                      decoration:  InputDecoration(
                         contentPadding:
-                            EdgeInsets.only(left: 10, right: 10),
+                            const EdgeInsets.only(left: 10, right: 10),
                         border: InputBorder.none,
                         hintText: 'Izoh',
-                        // errorText: _validatepassword ? 'Parol kiriting' : null,
                       ),
                     ),
                   ),
