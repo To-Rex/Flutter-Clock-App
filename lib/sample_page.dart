@@ -281,34 +281,18 @@ class _SamplePageState extends State<SamplePage> {
                   ),
                 ),
                 //refresh button
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: SizedBox(
-                    width: 200,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        //primary: const Color.fromRGBO(33, 158, 188, 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: () {
-                        times.clear();
-                        coments.clear();
-                        switchs.clear();
-                        getTemes();
-                        setState(() {});
-                      },
-                      child: const Text(
-                        'Refresh',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                //refresh floating button
+                FloatingActionButton(
+                  splashColor: Colors.white,
+                  backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
+                  onPressed: () {
+                    times.clear();
+                    coments.clear();
+                    switchs.clear();
+                    getTemes();
+                    setState(() {});
+                  },
+                  child: const Icon(Icons.refresh),
                 ),
               ],
             ),
