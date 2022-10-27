@@ -295,7 +295,7 @@ class _SamplePageState extends State<SamplePage> {
                     child: TextButton(
                       onPressed: () {
                         _isLoading ? null : updateTime(index);
-                        _switchControle.text = "false";
+                        //_switchControle.text = "false";
                         setState(() {});
                         updateTime(index);
                         //dialogdan chiqish
