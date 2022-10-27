@@ -36,13 +36,11 @@ class _SamplePageState extends State<SamplePage> {
         'Authorization': 'Bearer $token',
       },
     );
-    print(response.body);
     var data = jsonDecode(response.body);
     times = data['times'];
     coments = data['coments'];
     switchs = data['switch'];
     companets = data['companets'];
-    print(times);
     _isLoading = false;
     setState(() {});
 
@@ -54,7 +52,7 @@ class _SamplePageState extends State<SamplePage> {
     var clock = _timesControlle.text.substring(11,16);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token')!;
-    final response = await http.post(
+    await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/addtime"),
       headers: <String, String>{
         'Content-Type': 'application/json',
@@ -66,7 +64,6 @@ class _SamplePageState extends State<SamplePage> {
         'switch': _switchControle.text,
       }),
     );
-    print(response.body);
     _isLoading = false;
     getTemes();
   }
@@ -117,9 +114,9 @@ class _SamplePageState extends State<SamplePage> {
                       controller: _comentControle,
                       textAlign: TextAlign.left,
                       textInputAction: TextInputAction.next,
-                      decoration:  InputDecoration(
+                      decoration:  const InputDecoration(
                         contentPadding:
-                            const EdgeInsets.only(left: 10, right: 10),
+                            EdgeInsets.only(left: 10, right: 10),
                         border: InputBorder.none,
                         hintText: 'Izoh',
                       ),
@@ -291,7 +288,7 @@ class _SamplePageState extends State<SamplePage> {
                     height: 50,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: const Color.fromRGBO(33, 158, 188, 10),
+                        //primary: const Color.fromRGBO(33, 158, 188, 10),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
