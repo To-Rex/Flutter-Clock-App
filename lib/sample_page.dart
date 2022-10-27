@@ -43,13 +43,12 @@ class _SamplePageState extends State<SamplePage> {
     companets = data['companets'];
     _isLoading = false;
     setState(() {});
-
   }
 
   //add time function
   Future<void> addTime() async {
     _isLoading = true;
-    var clock = _timesControlle.text.substring(11,16);
+    var clock = _timesControlle.text.substring(11, 16);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token')!;
     await http.post(
@@ -86,6 +85,7 @@ class _SamplePageState extends State<SamplePage> {
     switchs.clear();
     getTemes();
   }
+
   //update time function
   Future<void> updateTime(int index) async {
     _isLoading = true;
@@ -98,7 +98,7 @@ class _SamplePageState extends State<SamplePage> {
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode(<String, String>{
-        'times': _timesControlle.text.substring(11,16),
+        'times': _timesControlle.text.substring(11, 16),
         'coments': _comentControle.text,
         'switch': _switchControle.text,
       }),
@@ -111,6 +111,118 @@ class _SamplePageState extends State<SamplePage> {
   }
 
   void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Yangi Vaqt Qo`shish"),
+          actions: <Widget>[
+            Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.2,
+                  child: TimePickerSpinner(
+                    is24HourMode: true,
+                    alignment: Alignment.center,
+                    isShowSeconds: false,
+                    time: DateTime.now(),
+                    normalTextStyle:
+                    const TextStyle(fontSize: 20, color: Colors.black12),
+                    highlightedTextStyle: const TextStyle(
+                        fontSize: 28, color: Color.fromRGBO(33, 158, 188, 10)),
+                    spacing: 30,
+                    itemHeight: 50,
+                    isForce2Digits: false,
+                    minutesInterval: 1,
+                    onTimeChange: (time) {
+                      setState(() {
+                        _timesControlle.text = time.toString();
+                      });
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 221, 221, 221),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 221, 221, 221),
+                          width: 2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      cursorColor: Colors.deepPurpleAccent,
+                      controller: _comentControle,
+                      textAlign: TextAlign.left,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        contentPadding:
+                        EdgeInsets.only(left: 10, right: 10),
+                        border: InputBorder.none,
+                        hintText: 'Izoh',
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.02,
+                ),
+                if(_isLoading)
+                  const CircularProgressIndicator()
+                else
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(33, 158, 188, 10),
+                        border: Border.all(width: 0),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          _isLoading ? null : addTime();
+                          _switchControle.text = "true";
+                          setState(() {});
+                          addTime();
+                          //dialogdan chiqish
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          "Saqlash",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 2, 48, 71),
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                SizedBox(
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.01,
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  //update time dialog
+  void _updateDialog(int index) {
+    _timesControlle.text = times[index];
+    _comentControle.text = coments[index];
+    _switchControle.text = switchs[index];
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -181,10 +293,10 @@ class _SamplePageState extends State<SamplePage> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        _isLoading ? null : addTime();
+                        _isLoading ? null : updateTime(index);
                         _switchControle.text = "true";
                         setState(() {});
-                        addTime();
+                        updateTime(index);
                         //dialogdan chiqish
                         Navigator.of(context).pop();
                       },
@@ -202,15 +314,12 @@ class _SamplePageState extends State<SamplePage> {
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
               ],
-            )
+            ),
           ],
         );
       },
     );
   }
-
-
-
   @override
   void initState() {
     super.initState();
@@ -280,7 +389,7 @@ class _SamplePageState extends State<SamplePage> {
                           children: [
                             ListTile(
                               onTap: () {
-                                //_showDialogUpdateTime();
+                                _updateDialog(index);
                               },
                               title: Text(times[index],
                                   style: const TextStyle(
