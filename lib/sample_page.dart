@@ -190,6 +190,7 @@ class _SamplePageState extends State<SamplePage> {
         child: AppBar(
           backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
           elevation: 3,
+          
         ),
       ),
       body: ListView(
@@ -280,23 +281,30 @@ class _SamplePageState extends State<SamplePage> {
                     ),
                   ),
                 ),
-                //refresh button
-                //refresh floating button
-                FloatingActionButton(
-                  splashColor: Colors.white,
-                  backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
-                  onPressed: () {
-                    times.clear();
-                    coments.clear();
-                    switchs.clear();
-                    getTemes();
-                    setState(() {});
-                  },
-                  child: const Icon(Icons.refresh),
+                Row(
+                  children: [
+                    const Expanded(child: Text("")),
+                    FloatingActionButton(
+                      splashColor: Colors.white,
+                      backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
+                      onPressed: () {
+                        times.clear();
+                        coments.clear();
+                        switchs.clear();
+                        getTemes();
+                        setState(() {});
+                      },
+                      child: const Icon(Icons.refresh),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
+
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -312,7 +320,8 @@ class _SamplePageState extends State<SamplePage> {
           color: Color.fromARGB(255, 2, 48, 71),
         ),
       ),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      //two floating action button
     );
   }
 }
