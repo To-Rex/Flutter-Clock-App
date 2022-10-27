@@ -25,8 +25,10 @@ class _SamplePageState extends State<SamplePage> {
   var coments = [];
   var switchs = [];
   var companets = [];
+  bool _isLoading = false;
 
   Future<void> getTemes() async {
+    _isLoading = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token')!;
     final response = await http.get(
@@ -43,12 +45,14 @@ class _SamplePageState extends State<SamplePage> {
     switchs = data['switch'];
     companets = data['companets'];
     print(times);
+    _isLoading = false;
     setState(() {});
+
   }
 
   //add time function
   Future<void> addTime() async {
-    //_timesControlle.text; parse to 24 hour format
+    _isLoading = true;
     var clock = _timesControlle.text.substring(11,16);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token')!;
@@ -65,6 +69,7 @@ class _SamplePageState extends State<SamplePage> {
       }),
     );
     print(response.body);
+    _isLoading = false;
     getTemes();
   }
 
@@ -127,7 +132,9 @@ class _SamplePageState extends State<SamplePage> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),
-
+                if(_isLoading)
+                  const CircularProgressIndicator()
+                else
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
@@ -138,6 +145,7 @@ class _SamplePageState extends State<SamplePage> {
                     ),
                     child: TextButton(
                       onPressed: () {
+                        _isLoading ? null : addTime();
                         _switchControle.text = "true";
                         addTime();
                         setState(() {});
