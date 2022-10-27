@@ -458,8 +458,7 @@ class _SamplePageState extends State<SamplePage> {
                                   height: 25.0,
                                   valueFontSize: 20.0,
                                   toggleSize: 25.0,
-                                  value:
-                                      switchs[index] == "true" ? true : false,
+                                  value: switchs[index] == "true" ? true : false,
                                   borderRadius: 8.0,
                                   padding: 2.4,
                                   activeColor: Colors.white,
@@ -467,8 +466,10 @@ class _SamplePageState extends State<SamplePage> {
                                   toggleColor:
                                       const Color.fromRGBO(33, 158, 188, 10),
                                   onToggle: (val) {
+                                    switchs[index] = val.toString();
+                                    _switchControle.text = val.toString();
+                                    updateTime(index);
                                     setState(() {
-                                      switchs[index] = val.toString();
                                     });
                                   },
                                   //togle radius 8 and color 0xff1f1f1f and text color 0xff1f1f1f
