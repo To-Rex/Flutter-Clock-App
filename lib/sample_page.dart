@@ -68,6 +68,48 @@ class _SamplePageState extends State<SamplePage> {
     getTemes();
   }
 
+  //delete time function
+  Future<void> deleteTime(int index) async {
+    _isLoading = true;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token')!;
+    await http.post(
+      Uri.parse("https://calcappworks.herokuapp.com/deletetime?index=$index"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    _isLoading = false;
+    times.clear();
+    coments.clear();
+    switchs.clear();
+    getTemes();
+  }
+  //update time function
+  Future<void> updateTime(int index) async {
+    _isLoading = true;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token')!;
+    await http.post(
+      Uri.parse("https://calcappworks.herokuapp.com/updatetime?index=$index"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(<String, String>{
+        'times': _timesControlle.text.substring(11,16),
+        'coments': _comentControle.text,
+        'switch': _switchControle.text,
+      }),
+    );
+    _isLoading = false;
+    times.clear();
+    coments.clear();
+    switchs.clear();
+    getTemes();
+  }
+
   void _showDialog() {
     showDialog(
       context: context,
@@ -167,6 +209,8 @@ class _SamplePageState extends State<SamplePage> {
     );
   }
 
+
+
   @override
   void initState() {
     super.initState();
@@ -235,6 +279,9 @@ class _SamplePageState extends State<SamplePage> {
                         return Column(
                           children: [
                             ListTile(
+                              onTap: () {
+                                //_showDialogUpdateTime();
+                              },
                               title: Text(times[index],
                                   style: const TextStyle(
                                       color: Color.fromARGB(255, 2, 48, 71),
