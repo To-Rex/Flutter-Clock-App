@@ -295,7 +295,7 @@ class _SamplePageState extends State<SamplePage> {
                     child: TextButton(
                       onPressed: () {
                         _isLoading ? null : updateTime(index);
-                        _switchControle.text = "true";
+                        _switchControle.text = "false";
                         setState(() {});
                         updateTime(index);
                         //dialogdan chiqish
@@ -333,7 +333,7 @@ class _SamplePageState extends State<SamplePage> {
             TextButton(
               onPressed: () {
                 _isLoading ? null : deleteTime(index);
-                _switchControle.text = "true";
+                _switchControle.text = "false";
                 setState(() {});
                 deleteTime(index);
                 //dialogdan chiqish
@@ -521,10 +521,18 @@ class _SamplePageState extends State<SamplePage> {
           // addTime();
         },
         backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
-        child: const Icon(
-          Icons.add,
-          size: 35,
-          color: Color.fromARGB(255, 2, 48, 71),
+        child:  Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (_isLoading)
+              const CircularProgressIndicator(color: Colors.white,)
+            else
+            const Icon(
+              Icons.add,
+              size: 35,
+              color: Color.fromARGB(255, 2, 48, 71),
+            ),
+          ],
         ),
       ),
       //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
