@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:swipe_refresh/swipe_refresh.dart';
 
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
