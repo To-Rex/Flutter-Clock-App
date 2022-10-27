@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
 
@@ -62,6 +61,16 @@ class _SamplePageState extends State<SamplePage> {
     );
     print(response.body);
     getTemes();
+  }
+  void _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2021),
+      lastDate: DateTime(2022),
+    ).then((date) {
+      print(date);
+    });
   }
 
   void _showDialog() {
