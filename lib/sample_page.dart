@@ -57,9 +57,9 @@ class _SamplePageState extends State<SamplePage> {
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode(<String, String>{
-        'times': "15:00",
-        'coments': "coment",
-        'switch': "true",
+        'times': _timesControlle.text,
+        'coments': _comentControle.text,
+        'switch': _switchControle.text,
       }),
     );
     print(response.body);
@@ -71,49 +71,87 @@ class _SamplePageState extends State<SamplePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Add time"),
-          content: const Text("Do you want to add time?"),
+          title: const Text("Yangi Vaqt Qo`shish"),
           actions: <Widget>[
             Column(
               children: [
-                TimePickerSpinner(
-                  is24HourMode: true,
-                  alignment: Alignment.center,
-                  isShowSeconds: false,
-                  time: DateTime.now(),
-                  normalTextStyle: const TextStyle(
-                      fontSize: 20, color: Colors.black12),
-                  highlightedTextStyle: const TextStyle(
-                      fontSize: 28, color: Color.fromRGBO(33, 158, 188, 10)),
-                  spacing: 30,
-                  itemHeight: 50,
-                  isForce2Digits: false,
-                  minutesInterval: 1,
-                  onTimeChange: (time) {
-                    setState(() {
-                      _timesControlle.text = time.toString();
-                    });
-                  },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: _comentControle,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Coment',
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  child: TimePickerSpinner(
+                    is24HourMode: true,
+                    alignment: Alignment.center,
+                    isShowSeconds: false,
+                    time: DateTime.now(),
+                    normalTextStyle:
+                    const TextStyle(fontSize: 20, color: Colors.black12),
+                    highlightedTextStyle: const TextStyle(
+                        fontSize: 28, color: Color.fromRGBO(33, 158, 188, 10)),
+                    spacing: 30,
+                    itemHeight: 50,
+                    isForce2Digits: false,
+                    minutesInterval: 1,
+                    onTimeChange: (time) {
+                      setState(() {
+                        _timesControlle.text = time.toString();
+                      });
+                    },
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 221, 221, 221),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 221, 221, 221),
+                          width: 2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      cursorColor: Colors.deepPurpleAccent,
+                      controller: _comentControle,
+                      textAlign: TextAlign.left,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(left: 10, right: 10),
+                        border: InputBorder.none,
+                        hintText: 'Izoh',
+                        // errorText: _validatepassword ? 'Parol kiriting' : null,
+                      ),
+                    ),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    addTime();
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("Add"),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(33, 158, 188, 10),
+                      border: Border.all(width: 0),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        _switchControle.text = "true";
+                        addTime();
+                        setState(() {});
+                      },
+                      child: const Text(
+                        "Saqlash",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 2, 48, 71),
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
                 ),
               ],
             )
@@ -136,7 +174,6 @@ class _SamplePageState extends State<SamplePage> {
     _timesControlle.dispose();
     _comentControle.dispose();
     _switchControle.dispose();
-
   }
 
   @override
@@ -256,9 +293,7 @@ class _SamplePageState extends State<SamplePage> {
                         coments.clear();
                         switchs.clear();
                         getTemes();
-                        setState(() {
-
-                        });
+                        setState(() {});
                       },
                       child: const Text(
                         'Refresh',
@@ -279,7 +314,7 @@ class _SamplePageState extends State<SamplePage> {
         onPressed: () {
           // Add your onPressed code here!
           _showDialog();
-         // addTime();
+          // addTime();
         },
         backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
         child: const Icon(
