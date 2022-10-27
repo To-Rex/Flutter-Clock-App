@@ -190,7 +190,7 @@ class _SamplePageState extends State<SamplePage> {
         child: AppBar(
           backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
           elevation: 3,
-          
+
         ),
       ),
       body: ListView(
@@ -281,6 +281,9 @@ class _SamplePageState extends State<SamplePage> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
                 Row(
                   children: [
                     const Expanded(child: Text("")),
@@ -296,9 +299,8 @@ class _SamplePageState extends State<SamplePage> {
                       },
                       child: const Icon(Icons.refresh),
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.05,
-                    ),
+                    const Expanded(child: Text("")),
+
                   ],
                 ),
               ],
@@ -320,8 +322,7 @@ class _SamplePageState extends State<SamplePage> {
           color: Color.fromARGB(255, 2, 48, 71),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      //two floating action button
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
