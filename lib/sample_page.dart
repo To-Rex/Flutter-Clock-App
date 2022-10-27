@@ -320,6 +320,51 @@ class _SamplePageState extends State<SamplePage> {
       },
     );
   }
+
+  void _deleteDialog(int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("O`chirish"),
+          content: const Text("O`chirishni istaysizmi?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                _isLoading ? null : deleteTime(index);
+                _switchControle.text = "true";
+                setState(() {});
+                deleteTime(index);
+                //dialogdan chiqish
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                "Ha",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 2, 48, 71),
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                //dialogdan chiqish
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                "Yo`q",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 2, 48, 71),
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -390,6 +435,9 @@ class _SamplePageState extends State<SamplePage> {
                             ListTile(
                               onTap: () {
                                 _updateDialog(index);
+                              },
+                              onLongPress: () {
+                                _deleteDialog(index);
                               },
                               title: Text(times[index],
                                   style: const TextStyle(
