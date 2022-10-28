@@ -394,11 +394,24 @@ class _SamplePageState extends State<SamplePage> {
 var now = DateTime.now();
     var hour = now.hour;
     var minute = now.minute;
-    var second = now.second;
     var time = "$hour:$minute";
     for (var i = 0; i < times.length; i++) {
-      if (times[i] == time) {
-
+      if(switchs[i] == "true"){
+        var time1 = times[i].toString().substring(11, 16);
+        if (time1 == time) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Ajoyib'),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              //time out 2 sec
+              duration: Duration(milliseconds: 700),
+              //position of snackbar
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
       }
     }
   }
