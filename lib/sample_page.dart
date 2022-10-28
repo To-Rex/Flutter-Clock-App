@@ -98,7 +98,7 @@ class _SamplePageState extends State<SamplePage> {
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode(<String, String>{
-        'times': _timesControlle.text.substring(11, 16),
+        'times': _timesControlle.text,
         'coments': _comentControle.text.toString(),
         'switch': _switchControle.text.toString(),
       }),
@@ -113,7 +113,7 @@ class _SamplePageState extends State<SamplePage> {
       _isLoading = false;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Xatolik'),
+          content: Text('Xatolik yuz berdi'),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
