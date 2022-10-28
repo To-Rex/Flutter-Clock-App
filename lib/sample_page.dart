@@ -188,7 +188,7 @@ class _SamplePageState extends State<SamplePage> {
                       child: TextButton(
                         onPressed: () {
                           _isLoading ? null : addTime();
-                          _switchControle.text = "false";
+                          _switchControle.text = "true";
                           setState(() {});
                           addTime();
                           _isLoading = true;
@@ -468,6 +468,7 @@ class _SamplePageState extends State<SamplePage> {
                                   onToggle: (val) {
                                     switchs[index] = val.toString();
                                     _switchControle.text = val.toString();
+                                    print(_switchControle.text);
                                     updateTime(index);
                                     setState(() {
                                     });
