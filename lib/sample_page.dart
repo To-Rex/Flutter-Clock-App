@@ -120,17 +120,14 @@ class _SamplePageState extends State<SamplePage> {
             Column(
               children: [
                 SizedBox(
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height * 0.2,
+                  height: MediaQuery.of(context).size.height * 0.2,
                   child: TimePickerSpinner(
                     is24HourMode: true,
                     alignment: Alignment.center,
                     isShowSeconds: false,
                     time: DateTime.now(),
                     normalTextStyle:
-                    const TextStyle(fontSize: 20, color: Colors.black12),
+                        const TextStyle(fontSize: 20, color: Colors.black12),
                     highlightedTextStyle: const TextStyle(
                         fontSize: 28, color: Color.fromRGBO(33, 158, 188, 10)),
                     spacing: 30,
@@ -160,8 +157,7 @@ class _SamplePageState extends State<SamplePage> {
                       textAlign: TextAlign.left,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
-                        contentPadding:
-                        EdgeInsets.only(left: 10, right: 10),
+                        contentPadding: EdgeInsets.only(left: 10, right: 10),
                         border: InputBorder.none,
                         hintText: 'Izoh',
                       ),
@@ -169,12 +165,9 @@ class _SamplePageState extends State<SamplePage> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height * 0.02,
+                  height: MediaQuery.of(context).size.height * 0.02,
                 ),
-                if(_isLoading)
+                if (_isLoading)
                   const CircularProgressIndicator()
                 else
                   Padding(
@@ -206,10 +199,7 @@ class _SamplePageState extends State<SamplePage> {
                     ),
                   ),
                 SizedBox(
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height * 0.01,
+                  height: MediaQuery.of(context).size.height * 0.01,
                 ),
               ],
             )
@@ -240,7 +230,7 @@ class _SamplePageState extends State<SamplePage> {
                     isShowSeconds: false,
                     time: DateTime.now(),
                     normalTextStyle:
-                    const TextStyle(fontSize: 20, color: Colors.black12),
+                        const TextStyle(fontSize: 20, color: Colors.black12),
                     highlightedTextStyle: const TextStyle(
                         fontSize: 28, color: Color.fromRGBO(33, 158, 188, 10)),
                     spacing: 30,
@@ -269,9 +259,8 @@ class _SamplePageState extends State<SamplePage> {
                       controller: _comentControle,
                       textAlign: TextAlign.left,
                       textInputAction: TextInputAction.next,
-                      decoration:  const InputDecoration(
-                        contentPadding:
-                            EdgeInsets.only(left: 10, right: 10),
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 10, right: 10),
                         border: InputBorder.none,
                         hintText: 'Izoh',
                       ),
@@ -281,36 +270,36 @@ class _SamplePageState extends State<SamplePage> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),
-                if(_isLoading)
+                if (_isLoading)
                   const CircularProgressIndicator()
-                 else
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(33, 158, 188, 10),
-                      border: Border.all(width: 0),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        _isLoading ? null : updateTime(index);
-                        //_switchControle.text = "false";
-                        setState(() {});
-                        updateTime(index);
-                        //dialogdan chiqish
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text(
-                        "Saqlash",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 2, 48, 71),
-                          fontSize: 20,
+                else
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(33, 158, 188, 10),
+                        border: Border.all(width: 0),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          _isLoading ? null : updateTime(index);
+                          //_switchControle.text = "false";
+                          setState(() {});
+                          updateTime(index);
+                          //dialogdan chiqish
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          "Saqlash",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 2, 48, 71),
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
@@ -389,7 +378,6 @@ class _SamplePageState extends State<SamplePage> {
         child: AppBar(
           backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
           elevation: 3,
-
         ),
       ),
       body: ListView(
@@ -458,7 +446,8 @@ class _SamplePageState extends State<SamplePage> {
                                   height: 25.0,
                                   valueFontSize: 20.0,
                                   toggleSize: 25.0,
-                                  value: switchs[index] == "true" ? true : false,
+                                  value:
+                                      switchs[index] == "true" ? true : false,
                                   borderRadius: 8.0,
                                   padding: 2.4,
                                   activeColor: Colors.white,
@@ -466,12 +455,7 @@ class _SamplePageState extends State<SamplePage> {
                                   toggleColor:
                                       const Color.fromRGBO(33, 158, 188, 10),
                                   onToggle: (val) {
-                                    switchs[index] = val.toString();
-                                    _switchControle.text = val.toString();
-                                    print(_switchControle.text);
-                                    updateTime(index);
-                                    setState(() {
-                                    });
+                                    
                                   },
                                   //togle radius 8 and color 0xff1f1f1f and text color 0xff1f1f1f
                                 ),
@@ -507,13 +491,11 @@ class _SamplePageState extends State<SamplePage> {
                       child: const Icon(Icons.refresh),
                     ),
                     const Expanded(child: Text("")),
-
                   ],
                 ),
               ],
             ),
           ),
-
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -523,17 +505,19 @@ class _SamplePageState extends State<SamplePage> {
           // addTime();
         },
         backgroundColor: const Color.fromRGBO(33, 158, 188, 10),
-        child:  Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (_isLoading)
-              const CircularProgressIndicator(color: Colors.white,)
+              const CircularProgressIndicator(
+                color: Colors.white,
+              )
             else
-            const Icon(
-              Icons.add,
-              size: 35,
-              color: Color.fromARGB(255, 2, 48, 71),
-            ),
+              const Icon(
+                Icons.add,
+                size: 35,
+                color: Color.fromARGB(255, 2, 48, 71),
+              ),
           ],
         ),
       ),
