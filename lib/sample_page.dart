@@ -188,7 +188,7 @@ class _SamplePageState extends State<SamplePage> {
                       child: TextButton(
                         onPressed: () {
                           _isLoading ? null : addTime();
-                          _switchControle.text = "true";
+                          _switchControle.text = "false";
                           setState(() {});
                           addTime();
                           _isLoading = true;
