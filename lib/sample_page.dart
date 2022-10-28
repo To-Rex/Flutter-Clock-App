@@ -91,7 +91,7 @@ class _SamplePageState extends State<SamplePage> {
     _isLoading = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token')!;
-    await http.post(
+    final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/updatetime?index=$index"),
       headers: <String, String>{
         'Content-Type': 'application/json',
@@ -99,17 +99,33 @@ class _SamplePageState extends State<SamplePage> {
       },
       body: jsonEncode(<String, String>{
         'times': _timesControlle.text.substring(11, 16),
-        'coments': _comentControle.text,
-        'switch': _switchControle.text,
+        'coments': _comentControle.text.toString(),
+        'switch': _switchControle.text.toString(),
       }),
     );
-    _isLoading = false;
-    times.clear();
-    coments.clear();
-    switchs.clear();
-    getTemes();
+    if (response.statusCode == 200) {
+      _isLoading = false;
+      times.clear();
+      coments.clear();
+      switchs.clear();
+      getTemes();
+    } else {
+      _isLoading = false;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Xatolik'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          //time out 2 sec
+          duration: Duration(milliseconds: 700),
+          //position of snackbar
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      throw Exception('Failed to update time.');
+    }
   }
-
   void _showDialog() {
     showDialog(
       context: context,
@@ -447,7 +463,7 @@ class _SamplePageState extends State<SamplePage> {
                                   valueFontSize: 20.0,
                                   toggleSize: 25.0,
                                   value:
-                                      switchs[index] == "true" ? true : false,
+                                      switchs[index] == "false" ? false : true,
                                   borderRadius: 8.0,
                                   padding: 2.4,
                                   activeColor: Colors.white,
@@ -455,7 +471,12 @@ class _SamplePageState extends State<SamplePage> {
                                   toggleColor:
                                       const Color.fromRGBO(33, 158, 188, 10),
                                   onToggle: (val) {
-                                    
+                                    switchs[index] = val.toString();
+                                    setState(() {});
+                                    _switchControle.text = val.toString();
+                                    _isLoading = false;
+                                    setState(() {});
+                                    updateTime(index);
                                   },
                                   //togle radius 8 and color 0xff1f1f1f and text color 0xff1f1f1f
                                 ),
