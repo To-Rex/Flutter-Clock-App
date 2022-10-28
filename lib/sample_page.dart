@@ -40,7 +40,7 @@ class _SamplePageState extends State<SamplePage> {
     var data = jsonDecode(response.body);
     times = data['times'];
     coments = data['coments'];
-    switchs = data['switch'];
+    switchs = data['switchs'];
     companets = data['companets'];
     _isLoading = false;
     setState(() {});
@@ -61,7 +61,7 @@ class _SamplePageState extends State<SamplePage> {
       body: jsonEncode(<String, String>{
         'times': clock,
         'coments': _comentControle.text,
-        'switch': _switchControle.text,
+        'switchs': _switchControle.text,
       }),
     );
     if (response.statusCode == 200) {
@@ -118,7 +118,7 @@ class _SamplePageState extends State<SamplePage> {
       body: jsonEncode(<String, String>{
         'times': _timesControlle.text,
         'coments': _comentControle.text.toString(),
-        'switch': _switchControle.text.toString(),
+        'switchs': _switchControle.text.toString(),
       }),
     );
     if (response.statusCode == 200) {
@@ -395,6 +395,7 @@ class _SamplePageState extends State<SamplePage> {
       var hour = now.hour;
       var minute = now.minute;
       var time = "$hour:$minute";
+      _alarmClock();
       for (var i = 0; i < times.length; i++) {
         if (switchs[i] == "true") {
           var time1 = times[i].toString().substring(11, 16);
@@ -413,7 +414,7 @@ class _SamplePageState extends State<SamplePage> {
             );
           }
         }
-        _alarmClock();
+
       }
     });
   }
