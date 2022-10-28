@@ -388,6 +388,33 @@ class _SamplePageState extends State<SamplePage> {
     );
   }
 
+  //Alarm clock methods times in index time equla current hour and minute then alarm clock
+  void _alarmClock() {
+    var now = DateTime.now();
+    var hour = now.hour;
+    var minute = now.minute;
+    var second = now.second;
+    var time = "$hour:$minute:$second";
+    for (var i = 0; i < times.length; i++) {
+      if (times[i] == time) {
+        //alarm clock sound play
+       // _alarmClockSound();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('hozzirgi vaqtga alarm'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            //time out 2 sec
+            duration: Duration(milliseconds: 700),
+            //position of snackbar
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
