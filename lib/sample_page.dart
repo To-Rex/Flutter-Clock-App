@@ -51,7 +51,7 @@ class _SamplePageState extends State<SamplePage> {
     var clock = _timesControlle.text;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token')!;
-    await http.post(
+    final response = await http.post(
       Uri.parse("https://calcappworks.herokuapp.com/addtime"),
       headers: <String, String>{
         'Content-Type': 'application/json',
@@ -63,8 +63,25 @@ class _SamplePageState extends State<SamplePage> {
         'switch': _switchControle.text,
       }),
     );
-    _isLoading = false;
-    getTemes();
+    if (response.statusCode == 200) {
+      _comentControle.clear();
+      _isLoading = false;
+      getTemes();
+    } else {
+      //throw Exception('Failed to load album');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('nimadur xato ketdi'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          //time out 2 sec
+          duration: Duration(milliseconds: 700),
+          //position of snackbar
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 
   //delete time function
