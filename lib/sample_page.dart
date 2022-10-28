@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:clock_mobile/settings_page.dart';
@@ -42,7 +43,6 @@ class _SamplePageState extends State<SamplePage> {
     switchs = data['switch'];
     companets = data['companets'];
     _isLoading = false;
-    _alarmClock();
     setState(() {});
   }
 
@@ -144,6 +144,7 @@ class _SamplePageState extends State<SamplePage> {
       throw Exception('Failed to update time.');
     }
   }
+
   void _showDialog() {
     showDialog(
       context: context,
@@ -388,38 +389,40 @@ class _SamplePageState extends State<SamplePage> {
       },
     );
   }
-
-  //Alarm clock methods times in index time equla current hour and minute then alarm clock
   void _alarmClock() {
-var now = DateTime.now();
-    var hour = now.hour;
-    var minute = now.minute;
-    var time = "$hour:$minute";
-    for (var i = 0; i < times.length; i++) {
-      if(switchs[i] == "true"){
-        var time1 = times[i].toString().substring(11, 16);
-        if (time1 == time) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Ajoyib'),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+    Timer(const Duration(milliseconds: 1000), () {
+      var now = DateTime.now();
+      var hour = now.hour;
+      var minute = now.minute;
+      var time = "$hour:$minute";
+      for (var i = 0; i < times.length; i++) {
+        if (switchs[i] == "true") {
+          var time1 = times[i].toString().substring(11, 16);
+          if (time1 == time) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Ajoyib'),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                //time out 2 sec
+                duration: Duration(milliseconds: 700),
+                //position of snackbar
+                behavior: SnackBarBehavior.floating,
               ),
-              //time out 2 sec
-              duration: Duration(milliseconds: 700),
-              //position of snackbar
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
+            );
+          }
         }
+        _alarmClock();
       }
-    }
+    });
   }
 
   @override
   void initState() {
     super.initState();
     getTemes();
+    _alarmClock();
   }
 
   @override
@@ -489,7 +492,8 @@ var now = DateTime.now();
                               onLongPress: () {
                                 _deleteDialog(index);
                               },
-                              title: Text(times[index].toString().substring(11, 16),
+                              title: Text(
+                                  times[index].toString().substring(11, 16),
                                   style: const TextStyle(
                                       color: Color.fromARGB(255, 2, 48, 71),
                                       textBaseline: TextBaseline.ideographic,
@@ -516,7 +520,6 @@ var now = DateTime.now();
                                   toggleColor:
                                       const Color.fromRGBO(33, 158, 188, 10),
                                   onToggle: (val) {
-
                                     switchs[index] = val.toString();
                                     _timesControlle.text = times[index];
                                     _comentControle.text = coments[index];
