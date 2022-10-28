@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
@@ -391,44 +392,14 @@ class _SamplePageState extends State<SamplePage> {
 
   //Alarm clock methods times in index time equla current hour and minute then alarm clock
   void _alarmClock() {
-    var now = DateTime.now();
+var now = DateTime.now();
     var hour = now.hour;
     var minute = now.minute;
+    var second = now.second;
     var time = "$hour:$minute";
-
     for (var i = 0; i < times.length; i++) {
-      var tim = times[i].toString().substring(11, 16);
-      print(tim);
-      print(time);
-      if (tim == time) {
-        print("alarm clock");
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('hozzirgi vaqtga alarm'),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            //time out 2 sec
-            duration: Duration(milliseconds: 700),
-            //position of snackbar
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      }
-      else{
-        print("alarm clock");
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('hozzirgi vaqtga alarm'),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            //time out 2 sec
-            duration: Duration(milliseconds: 700),
-            //position of snackbar
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+      if (times[i] == time) {
+
       }
     }
   }
