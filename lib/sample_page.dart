@@ -48,7 +48,7 @@ class _SamplePageState extends State<SamplePage> {
   //add time function
   Future<void> addTime() async {
     _isLoading = true;
-    var clock = _timesControlle.text.substring(11, 16);
+    var clock = _timesControlle.text;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token')!;
     await http.post(
@@ -444,7 +444,7 @@ class _SamplePageState extends State<SamplePage> {
                               onLongPress: () {
                                 _deleteDialog(index);
                               },
-                              title: Text(times[index],
+                              title: Text(times[index].toString().substring(11, 16),
                                   style: const TextStyle(
                                       color: Color.fromARGB(255, 2, 48, 71),
                                       textBaseline: TextBaseline.ideographic,
@@ -471,7 +471,10 @@ class _SamplePageState extends State<SamplePage> {
                                   toggleColor:
                                       const Color.fromRGBO(33, 158, 188, 10),
                                   onToggle: (val) {
+
                                     switchs[index] = val.toString();
+                                    _timesControlle.text = times[index];
+                                    _comentControle.text = coments[index];
                                     setState(() {});
                                     _switchControle.text = val.toString();
                                     _isLoading = false;
