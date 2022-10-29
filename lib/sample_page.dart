@@ -4,12 +4,9 @@ import 'dart:convert';
 import 'package:clock_mobile/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:flutter/services.dart';
 
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
