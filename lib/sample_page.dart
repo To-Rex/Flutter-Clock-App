@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:clock_mobile/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
@@ -390,21 +391,12 @@ class _SamplePageState extends State<SamplePage> {
       },
     );
   }
-  static const channel = MethodChannel('lightacademy/channel');
-  playMusic() async {
-    try {
-      await channel.invokeMethod('playMusic');
-    } on PlatformException catch (ex) {
-      print(ex.message);
-    }
-  }
-
-  stopMusic() async {
-    try {
-      await channel.invokeMethod('stopMusic');
-    } on PlatformException catch (ex) {
-      print(ex.message);
-    }
+  Future<void> main() async {
+    await JustAudioBackground.init(
+      androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+      androidNotificationChannelName: 'Audio playback',
+      androidNotificationOngoing: true,
+    );
   }
   void _alarmClock() {
     Timer(const Duration(milliseconds: 1000), () {
@@ -416,7 +408,6 @@ class _SamplePageState extends State<SamplePage> {
           print(time1);
           print(now);
           if (time1 == now) {
-            playMusic();
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Ajoyib'),
