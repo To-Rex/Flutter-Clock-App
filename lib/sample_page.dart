@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:clock_mobile/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -391,13 +392,13 @@ class _SamplePageState extends State<SamplePage> {
       },
     );
   }
-  Future<void> main() async {
+  /*Future<void> main() async {
     await JustAudioBackground.init(
       androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
       androidNotificationChannelName: 'Audio playback',
       androidNotificationOngoing: true,
     );
-  }
+  }*/
   void _alarmClock() {
     Timer(const Duration(milliseconds: 1000), () {
       var now = DateTime.now().toString().substring(11, 16);
@@ -407,6 +408,7 @@ class _SamplePageState extends State<SamplePage> {
           var time1 = times[i].toString().substring(11, 16);
           print(time1);
           print(now);
+          //AudioPlayer();
           if (time1 == now) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
