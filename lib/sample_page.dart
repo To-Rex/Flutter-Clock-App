@@ -391,15 +391,14 @@ class _SamplePageState extends State<SamplePage> {
   }
   void _alarmClock() {
     Timer(const Duration(milliseconds: 1000), () {
-      var now = DateTime.now();
-      var hour = now.hour;
-      var minute = now.minute;
-      var time = "$hour:$minute";
+      var now = DateTime.now().toString().substring(11, 16);
       _alarmClock();
       for (var i = 0; i < times.length; i++) {
         if (switchs[i] == "true") {
           var time1 = times[i].toString().substring(11, 16);
-          if (time1 == time) {
+          print(time1);
+          print(now);
+          if (time1 == now) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Ajoyib'),
