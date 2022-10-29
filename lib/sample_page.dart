@@ -390,7 +390,6 @@ class _SamplePageState extends State<SamplePage> {
       },
     );
   }
-  int _counter = 0;
   static const channel = MethodChannel('lightacademy/channel');
   playMusic() async {
     try {
