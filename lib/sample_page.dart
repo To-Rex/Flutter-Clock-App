@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
+import 'package:flutter/services.dart';
 
 class SamplePage extends StatefulWidget {
   const SamplePage({super.key});
@@ -389,6 +390,23 @@ class _SamplePageState extends State<SamplePage> {
       },
     );
   }
+  int _counter = 0;
+  static const channel = MethodChannel('lightacademy/channel');
+  playMusic() async {
+    try {
+      await channel.invokeMethod('playMusic');
+    } on PlatformException catch (ex) {
+      print(ex.message);
+    }
+  }
+
+  stopMusic() async {
+    try {
+      await channel.invokeMethod('stopMusic');
+    } on PlatformException catch (ex) {
+      print(ex.message);
+    }
+  }
   void _alarmClock() {
     Timer(const Duration(milliseconds: 1000), () {
       var now = DateTime.now().toString().substring(11, 16);
@@ -399,6 +417,7 @@ class _SamplePageState extends State<SamplePage> {
           print(time1);
           print(now);
           if (time1 == now) {
+            playMusic();
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Ajoyib'),
