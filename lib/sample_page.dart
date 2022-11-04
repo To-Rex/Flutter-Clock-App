@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:isolate';
 
 import 'package:clock_mobile/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,16 @@ class _SamplePageState extends State<SamplePage> {
   var companets = [];
   bool _isLoading = false;
 
+  @pragma('vm:entry-point')
+  static void printHello() {
+    final DateTime now = DateTime.now();
+    final int isolateId = Isolate.current.hashCode;
+    print("[$now] Hello, world! isolate=${isolateId} function='$printHello'");
+  }
+
   Future<void> getTemes() async {
     _isLoading = true;
+    printHello();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token')!;
     final response = await http.get(
